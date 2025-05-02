@@ -3,7 +3,6 @@ import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 import Home from './poji/Home'
 import Page from './poji/Pages'
 import Nav from './poji/Nav'
-import Move from './poji/move'
 import Gta from './poji/Gta'
 import Payment from './poji/Payment'
 import Purchasesuccess from './poji/Purchasesuccess'
@@ -17,7 +16,7 @@ import Sellerpage from './poji/Sellerpage'
 import Admin from './Admin c/Admin'
 import Addpro from './Admin c/Addpro'
 import Accx from './poji/Accx'
-
+import Move from './poji/Move1'
 
 function App() {
   return (

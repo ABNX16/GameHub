@@ -74,7 +74,7 @@ const games = [
     //     },
 ];
 
-const Move= () => {
+const Move1= () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -116,4 +116,4 @@ const Move= () => {
     </div>
   );
 };
-export default Move
+export default Move1

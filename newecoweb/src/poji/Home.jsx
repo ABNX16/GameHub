@@ -1,7 +1,7 @@
 import React from 'react'
 import Page from './Pages'
 import Nav from './Nav'
-import Move from './move'
+import Move from './Move1'
 import page from './Pages'
 import Soon from './Soon'
 import './home.css'
