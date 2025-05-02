@@ -1,0 +1,86 @@
+#cfc{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    overflow: hidden;
+   
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: black;
+  }
+  
+#c2c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+  }
+
+.carousel-image{
+    width: 1000px;
+    height: 500px;
+    /* object-fit: cover; */
+    border-radius: 10px;
+    margin-left: -300px;
+}
+  .carousel-des{
+    margin-top: 100px;
+    color: white;
+    margin-left:-600px;
+   
+  
+  }
+  .carousel-title {
+  
+    
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-left: 300px;
+    margin-top: -250px;
+  }
+  
+  #prev, #next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+  }
+  
+  #prev { left: 10px; margin-left: -10px; color: transparent; }
+  #next { right: 10px;  color: transparent;}
+  
+  #prev:hover, #next:hover {
+    background-color: transparent;
+  }
+  
+  .dots {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background: gray;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .dot.active {
+    background: white;
+  }
+  

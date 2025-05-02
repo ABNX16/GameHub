@@ -1,0 +1,300 @@
+/* 
+* {
+    margin: 0;
+    padding: 0;
+ 
+    font-family: 'Poppins', sans-serif;
+}
+
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    margin-left: -100px;
+   
+    width: 100%;
+}
+
+
+#logo {
+   
+ height: 150px;
+ width:350px;
+ margin: 0px;
+ margin-left: 50px;
+ 
+}
+
+#sea {
+    width: 550px;
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    margin-top: -80px;
+    margin-left: -50px;
+  }
+  .search-link{
+    text-decoration: none;
+    color: #000000;
+  }
+ 
+  .search-results {
+    position: absolute;
+    background: white;
+    width: 530px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+
+  .search-item {
+    padding: 10px;
+   color: #000000;
+    
+  }
+  
+  
+  .search-link:hover {
+    background: transparent;
+    color: rgb(0, 0, 0);
+  }
+   .search-item:hover {
+    background:transparent;
+    color: white;
+  }
+  
+  .search-item:last-child {
+    color: rgb(0, 0, 0);
+    background-color: white;
+    font-style: italic;
+    text-align: center;
+  }
+
+
+#navt{
+    display: flex;
+    gap: 30px;
+    text-decoration: none;
+
+}
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease-in-out;
+    
+}
+
+
+.navt {
+    color: rgb(255, 242, 242);
+    text-decoration: none;
+    font-size: 18px;
+    
+    
+}
+
+.nav-link:hover {
+    color: #00b4d8;
+}
+
+
+@media screen and (max-width: 1024px) {
+    #header {
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+    }
+
+    #nav-links {
+        flex-direction: row;
+        gap: 10px;
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #header {
+        padding: 15px;
+    }
+
+    #nav-links {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #logo {
+        font-size: 20px;
+    }
+
+    .nav-link {
+        font-size: 14px;
+    }
+} 
+ */
+ .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #1a1a1a;
+  color: white;
+  font-size: medium;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 65px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  
+
+  letter-spacing: 2px;
+ 
+}
+
+.logo-game {
+  color: #00ff00;
+}
+
+.logo-hub {
+  color: #00aaff;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 20px;
+  font-style: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color:#d9e414;
+}
+
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+
+.icon:hover {
+  color: #00ff00;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-box {
+  position: absolute;
+  top: -5px;
+  right: 35px;
+  background-color: #2a2a2a;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.search-box input:focus {
+  outline: none;
+}
+
+.search-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.suggestion {
+  padding: 4px 8px;
+  background-color: #1e1e1e;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.suggestion:hover {
+  background-color: #00ff00;
+  color: black;
+}
+
+.search-link {
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+.search-link:hover {
+  color: black;
+}
+
+.hamburger-icon {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #1a1a1a;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .nav-links.mobile-menu-open {
+    display: flex;
+  }
+
+  .hamburger-icon {
+    display: block;
+  }
+}
