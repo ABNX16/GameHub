@@ -8,6 +8,7 @@ import './home.css'
 import Footer from './Footer'
 import Consol from './Consol'
 import Accx from './Accx'
+import Games from './Games'
 
 function Home() {
   return ( 
@@ -17,17 +18,16 @@ function Home() {
   </div>
   <br/>
    <div id='move321'> <Move/></div>
-    <div> <h1 className='cs1'>GAMES ON SALE</h1>
-      <Page showNav={false}/>
+    <div> 
+    <Games showNav={false} showFoot={false}/>
 
     </div> 
-    <div> <h1 className='cs1'>CONSOLES ON SALE</h1>
-      <Consol showNav={false}/>
+    <div> 
+      <Consol showNav={false} showFoot={false}/>
 
     </div> 
-    <div> <h1 className='cs1'>Accessories
-    </h1>
-      <Accx  showNav={false}/>
+    <div> 
+      <Accx  showNav={false} showFoot={false}/>
       </div>  
     
     <div> <h1 className='cs1'>COMING SOON</h1>

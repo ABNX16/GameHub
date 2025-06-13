@@ -1,140 +1,220 @@
-
-import { useState } from "react";
-import './pages.css'
-import { Link } from 'react-router-dom';
-import App from "../App";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Nav from "./Nav";
+import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
 
-const carts = [
-    { offer: "9%",
-      name: "GTA V", 
-      icon: "https://s3-ap-southeast-1.amazonaws.com/cdn.gamestheshop.com/boxart/1a3b1a1f-244f-4942-9341-a0ac3f8cf337.jpg", 
-      description: "₹1999" ,
-      path: '/gta',
-      cut: "₹2199 ",
-    },
-    {  offer:"45%",
-      name: "Red Dead Redemption 2", 
-      icon: "https://s3-ap-southeast-1.amazonaws.com/cdn.gamestheshop.com/boxart/21628b85-4d4b-4156-9b46-d2bdcf71eabe.jpg", 
-      description: "₹2199" ,
-      path: "/rdr",
-      cut:"₹4500",
-    },
-   
- 
-  ];
-  
-  const Cart = ({ showNav = true , showFoot = true }) => {
-    const [hoveredIndex, setHoveredIndex] = useState(null);
-return ( 
-<div>
-<div>   {showNav && <Nav />} </div>
-<div id="all1">
+function Cart({ showNav = true, showFoot = true }) {
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-<div style={styles.container} id="con1">
-{carts.map((carts, index) => {
-let initialX = 0;
-let delay = 0;
+ const userEmail = localStorage.getItem('userEmail');
 
-if (carts.name === "GTA V") {
-  
-} else if (carts.name === "Red Dead Redemption 2") {
- 
-} 
 
-return ( 
+  useEffect(() => {
+    if (!userEmail) {
+      setError("Please log in to view your cart.");
+      setLoading(false);
+      return;
+    }
 
-  <div
+   axios.get(`http://localhost:5000/cart/${userEmail}`)
 
-    style={{
-      ...styles.pagesBox,
-      ...(hoveredIndex === index ? styles.pagesBoxHover : {}),
-    }}
-    className="pagesbox"
-    onMouseEnter={() => setHoveredIndex(index)}
-    onMouseLeave={() => setHoveredIndex(null)}
+      .then((response) => {
+        setCartItems(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError('Failed to load cart items.');
+        setLoading(false);
+      });
+  }, [userEmail]);
 
-  >  
+  const handleRemoveFromCart = (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to remove this product from the cart?");
+    if (!confirmDelete) return;
 
-    <img src={carts.icon} alt={carts.name} style={styles.icon} />
-    <p style={styles.pagesoffer} id="offer">{carts.offer} </p>
-   <p style={styles.pagesName} > <h3>{carts.name} </h3></p> 
-  <h2>  <p style={styles.description}> <h3>{carts.description} </h3></p>  </h2>
-   <s> <p style={styles.cut} id="cut">{carts.cut}</p> </s> 
-    <button id="bb11">
-    <Link to={carts.path} style={{ textDecoration: "none", color: "black" }}>BUY NOW</Link>
-</button > <button id="bb12">REMOVE FROM CART</button>
-  </div>
-);
-})}
-</div> 
-<div>
-</div>
-</div>  </div>
-)
-};
+    axios.delete(`http://localhost:5000/cart/${id}`)
+      .then(() => {
+        setCartItems(cartItems.filter(item => item._id !== id));
+      })
+      .catch((err) => {
+        setError('Failed to remove item from cart.');
+        console.error(err);
+      });
+  };
 
-const styles = {
-
- body:{
-  backgroundColor:"black",
-  padding:"0px",
-  
-
- },
-container: {
-  display: "flex",
-  flexWrap: "wrap",
-  backgroundColor: "black",
-  padding: "40px",
-  gap: "50px",
-  
-  
-  
-  
- 
-},
-heading: {
-  textAlign: "center",
-  fontSize: "28px",
-  
-  marginBottom: "20px",
-},
-pagesBox: {
-  width: "210px",
-  height: "400px",
-  backgroundColor: "  rgb(255, 255, 255)",
-  padding: "15px",
- 
-  borderRadius: "8px",
-  textAlign: "center",
-  transition: "transform 0.3s, box-shadow 0.3s",
-  cursor: "pointer",
-  boxShadow: "0 4px 10px rgb(0, 0, 0)",
-},
-pagesBoxHover: {
-  boxShadow: "0px 0px 15px rgb(255, 255, 255)",
-  transform: "scale(1.1)",
-},
-icon: {
-  width: "200px",
-  height: "200px",
-  marginBottom: "10px",
-},
-
-pagesName: {
-  fontSize: "14px",
-  fontWeight: "bold",
-  color: "#00aaff",
-  // color: "rgb(8, 95, 36)",
-  marginBottom: "5px",
-},
-description: {
-  fontSize: "12px",
-  color: "black",
-},
-
+  return (
+    <div>
+      {showNav && <Nav />}
+      <div style={styles.pageContainer}>
+        <h2 style={styles.header}>My Cart</h2>
+        {error && <div style={styles.error}>{error}</div>}
+        {loading ? (
+          <div style={styles.loading}>Loading cart items...</div>
+        ) : (
+          cartItems.length > 0 ? (
+            <div style={styles.cartContainer}>
+              {cartItems.map(item => (
+                <div key={item._id} style={styles.cartItem}>
+                  <img
+                    src={`http://localhost:5000${item.image}`}
+                    alt={item.name}
+                    style={styles.image}
+                  />
+                  <div style={styles.itemDetails}>
+                    <div style={styles.productName}>{item.name}</div>
+                    <div style={styles.productPrice}>
+                      <span style={styles.offerPrice}>₹{item.offerPrice}</span>
+                      <span style={styles.originalPrice}><s>₹{item.price}</s></span>
+                    </div>
+                    <div style={styles.discountTag}>{item.offer}% OFF</div>
+                  </div>
+                  <div style={styles.buttonContainer}>
+                    <button
+                      style={styles.buyNowButton}
+                      onClick={() => navigate("/buynow", { state: { product: item } })}
+                    >
+                      BUY NOW
+                    </button>
+                    <button
+                      onClick={() => handleRemoveFromCart(item._id)}
+                      style={styles.removeButton}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={styles.emptyCartMessage}>Your cart is empty.</div>
+          )
+        )}
+      </div>
+      {showFoot && <Footer />}
+    </div>
+  );
 }
 
-export default Cart
+const styles = {
+  pageContainer: {
+    fontFamily: 'Arial, sans-serif',
+    backgroundColor: 'black',
+    minHeight: '100vh',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  header: {
+    fontSize: '28px',
+    fontWeight: 'bold',
+    marginBottom: '20px',
+    color: 'white',
+  },
+  cartContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+    width: '100%',
+    maxWidth: '1200px',
+  },
+  cartItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#D3D3D3',
+    borderRadius: '12px',
+    padding: '15px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    gap: '20px',
+  },
+  image: {
+    width: '100px',
+    height: '100px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+  },
+  itemDetails: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    flex: '1',
+  },
+  productName: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  productPrice: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+  offerPrice: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  originalPrice: {
+    fontSize: '16px',
+    color: 'black',
+    textDecoration: 'line-through',
+  },
+  discountTag: {
+    backgroundColor: '#3d550c',
+    color: '#fff',
+    padding: '5px 15px',
+    borderRadius: '20px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    marginTop: '10px',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '10px',
+  },
+  buyNowButton: {
+    padding: '10px',
+    backgroundColor: '#0073e6',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '16px',
+    cursor: 'pointer',
+  },
+  removeButton: {
+    padding: '8px 15px',
+    backgroundColor: '#f44336',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginTop: '20px',
+    fontWeight: 'bold',
+  },
+  loading: {
+    textAlign: 'center',
+    fontSize: '18px',
+    color: '#555',
+    marginTop: '40px',
+  },
+  emptyCartMessage: {
+    textAlign: 'center',
+    fontSize: '18px',
+    color: '#555',
+    marginTop: '40px',
+  },
+};
 
+export default Cart;

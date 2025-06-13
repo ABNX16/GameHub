@@ -1,0 +1,41 @@
+.seller-list-container {
+  padding: 20px;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.seller-grid {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.seller-header, .seller-card {
+  display: table-row;
+}
+
+.seller-header div,
+.seller-card div {
+  display: table-cell;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.seller-header {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.seller-card img {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}

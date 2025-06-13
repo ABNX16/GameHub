@@ -1,147 +1,145 @@
-import { useState } from "react";
-import './pages.css'
+import { useState, useEffect } from "react";
+import './pages.css';
 import { Link } from 'react-router-dom';
-import App from "../App";
 import Nav from "./Nav";
+import axios from "axios";
+import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
+function Accx({ showNav = true, showFoot = true }) {
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
+  // Removed loading state entirely
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    axios.get('http://localhost:5000/user/products')
+      .then(response => {
+        setItems(response.data);
+        // No loading to set
+      })
+      .catch(() => {
+        setError('Failed to load products.');
+      });
+  }, []);
 
-    const apages = [
-        { offer: "6% off",
-          name: "Sony Playstation 5 Official Dual Sense Controller White", 
-          icon: "https://sgp1.digitaloceanspaces.com/relay-bl-in-records/GameNation/EA_1086", 
-          description: "₹5999" ,
-          path: '/gtav',
-          cut: "₹6399 ",
-        },
-        {  offer:"37% off",
-          name: "Sony Official PlayStation 5 Pulse 3D Wireless Headset White", 
-          icon: "https://relay-bl-in-records.sgp1.cdn.digitaloceanspaces.com/GameNation/EA_1087", 
-          description: "₹5199" ,
-          path: "/rdr2 off",
-          cut:"₹8299",
-        },
-        { offer:"",
-          name: "Sony Official Playstation 5 Dual Sense Controller Charging Station", 
-          icon: "https://relay-bl-in-records.sgp1.cdn.digitaloceanspaces.com/GameNation/EA_1091", 
-          description: "₹2250" ,
-          path: "",
-          cut:"3350",
-        },
-        { offer:"38%",
-            name: "Sony Official PlayStation 5 Pulse 3D Wireless Headset Midnight Black", 
-            icon: "https://relay-bl-in-records.sgp1.cdn.digitaloceanspaces.com/GameNation/EA_1714", 
-            description: "₹4999" ,
-            path: "",
-            cut:"₹7999",
-          }
-      ];
-      
-      const Accx = ({ showNav = true , showFoot = true }) => {
-        const [hoveredIndex, setHoveredIndex] = useState(null);
-  return ( 
+   const handleAddToCart = (item) => {
+     const userEmail = localStorage.getItem('userEmail');
+     if (!userEmail) return alert('Please login first');
+ 
+     axios.post('http://localhost:5000/cart/add', { ...item, userEmail })
+       .then(() => alert("Added to cart"))
+       .catch(err => alert("Item already in cart"));
+   };
+  const groupedItems = items.reduce((acc, item) => {
+    if (!acc[item.category]) acc[item.category] = [];
+    acc[item.category].push(item);
+    return acc;
+  }, {});
+
+  const AccxItems = groupedItems['Accessories'] || [];
+
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:5000/user/products/${id}`)
+      .then(() => {
+        setItems(prev => prev.filter(item => item._id !== id));
+      })
+      .catch(err => console.error("Delete error:", err));
+  };
+
+  const handleUpdate = (id) => {
+    console.log("Update clicked for:", id);
+  };
+
+  return (
     <div>
-    <div>   {showNav && <Nav />} </div>
-    <div id="all1">
-
-<div style={styles.container} id="con1">
-  {apages.map((apages, index) => {
-    let initialX = 0;
-    let delay = 0;
-
-
-    return ( 
-   
-      <div
-    
-        style={{
-          ...styles.apagesBox,
-          ...(hoveredIndex === index ? styles.apagesBoxHover : {}),
-        }}
-        className="apagesbox"
-        onMouseEnter={() => setHoveredIndex(index)}
-        onMouseLeave={() => setHoveredIndex(null)}
-
-      >  
-  
-        <img src={apages.icon} alt={apages.name} style={styles.icon} />
-        <p style={styles.apagesoffer} id="offer">{apages.offer} </p>
-       <p style={styles.apagesName} > <h3>{apages.name} </h3></p> 
-      <h2>  <p style={styles.description}> <h3>{apages.description} </h3></p>  </h2>
-       <s> <p style={styles.cut} id="cut">{apages.cut}</p> </s> 
-        <button id="bb1b">
-        <Link to={apages.path} style={{ textDecoration: "none", color: "black" }}>BUY NOW</Link>
-</button>
+      {showNav && <Nav />}
+      <div id="all1">
+        <h1 id="h321">Accessories on sales</h1>
+        {error && <div style={styles.error}>{error}</div>}
+        {/* Removed loading condition */}
+        {AccxItems.length > 0 ? (
+          <div style={styles.container}>
+            <div style={styles.container}>
+              {AccxItems.map(item => (
+                <div key={item._id} style={styles.card} className="card2">
+                  <img
+                    src={`http://localhost:5000${item.image}`}
+                    alt={item.name}
+                    style={styles.image}
+                  />
+                  <div style={styles.offer}>{item.offer}%</div>
+                  <div style={styles.name}>{item.name}</div>
+                  <div style={styles.detail}><s>₹{item.price}</s></div>
+                  <div style={styles.detail}>₹{item.offerPrice}</div>
+                  <button id="bb1b" onClick={() => navigate("/buynow", { state: { product: item } })}> BUY NOW</button>
+                  <button id="bb2b" onClick={() => handleAddToCart(item)}>add to cart</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div>No products found in the "Games" category.</div>
+        )}
       </div>
-    );
-  })}
-</div> 
-<div>
-</div>
-    </div>  </div>
-  )
-};
+        <div id="footerr">
+      {showFoot && <Footer/>} </div>
+    </div>
+  );
+}
 
 const styles = {
-
-     body:{
-      backgroundColor:"black",
-      padding:"0px",
-      
-
-     },
-    container: {
-      display: "flex",
-      flexWrap: "wrap",
-      backgroundColor: "black",
-      padding: "40px",
-      gap: "50px",
-      
-      
-      
-     
-    },
-    heading: {
-      textAlign: "center",
-      fontSize: "28px",
-      
-      marginBottom: "20px",
-    },
-    apagesBox: {
-      width: "210px",
-      height: "430px",
-      backgroundColor: "  rgb(255, 255, 255)",
-      padding: "15px",
-     
-      borderRadius: "8px",
-      textAlign: "center",
-      transition: "transform 0.3s, box-shadow 0.3s",
-      cursor: "pointer",
-      boxShadow: "0 4px 10px rgb(0, 0, 0)",
-    },
-    apagesBoxHover: {
-      boxShadow: "0px 0px 15px rgb(255, 255, 255)",
-      transform: "scale(1.1)",
-    },
-    icon: {
-      width: "200px",
-      height: "200px",
-      marginBottom: "10px",
-    },
-  
-    apagesName: {
-      fontSize: "14px",
-      fontWeight: "bold",
-      color: "#00aaff",
-      // color: "rgb(8, 95, 36)",
-      marginBottom: "5px",
-    },
-    description: {
-      fontSize: "12px",
-      color: "black",
-    },
-
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: '30px',
+    padding: '40px',
+    backgroundColor: 'black',
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    width: '250px',
+    padding: '15px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    fontFamily: 'Arial, sans-serif',
+  },
+  image: {
+    width: "200px",
+    height: "200px",
+    marginBottom: "10px",
+  },
+  name: {
+    color: '#0073e6',
+    fontSize: '18px',
+    fontWeight: 'bold',
+    margin: '10px 0 5px',
+    textAlign: 'center',
+  },
+  detail: {
+    fontSize: '16px',
+    margin: '4px 0',
+    color: '#000',
+  },
+  offer: {
+    backgroundColor: '#3d550c',
+    color: 'wheat',
+    padding: '4px 10px',
+    borderRadius: '15px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    marginBottom: '8px',
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginTop: '20px',
+    fontWeight: 'bold',
   }
+};
 
-export default Accx
-
+export default Accx;

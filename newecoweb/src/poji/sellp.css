@@ -1,0 +1,95 @@
+.confirmation-container34 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://wallpapersok.com/images/hd/playstation-controller-icons-in-solid-black-tueyy14z9zuhvq5e.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  padding: 20px;
+}
+
+.confirmation-card34 {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  margin-top: 70px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.icon-circle34 {
+  background-color: #0015ff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  margin-top: -70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkmark34 {
+  font-size: 32px;
+  color: white;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.message34 {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.button-group34 {
+  margin-top: 40px;
+}
+
+.continue-shopping34 {
+  background-color: #0015ff;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  margin-top: -10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.continue-shopping34:hover {
+  background-color: #0030ff;
+}
+
+#p222 {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #777;
+}
+
+#wha {
+  color: #007bff;
+  margin: 0 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+#wha:hover {
+  color: #0056b3;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

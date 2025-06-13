@@ -1,165 +1,167 @@
-import { useState } from "react";
-import './pages.css'
+import { useState, useEffect } from "react";
+import './pages.css';
 import { Link } from 'react-router-dom';
-import App from "../App";
 import Nav from "./Nav";
+import axios from "axios";
+import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+
+function Consol({ showNav = true, showFoot = true }) {
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/user/products')
+      .then(response => {
+        setItems(response.data);
+       
+      })
+      .catch(() => {
+        
+       
+      });
+  }, []);
+   const handleAddToCart = (item) => {
+     const userEmail = localStorage.getItem('userEmail');
+     if (!userEmail) return alert('Please login first');
+ 
+     axios.post('http://localhost:5000/cart/add', { ...item, userEmail })
+       .then(() => alert("Added to cart"))
+       .catch(err => alert("Item already in cart"));
+   };
 
 
+  const groupedItems = items.reduce((acc, item) => {
+    if (!acc[item.category]) acc[item.category] = [];
+    acc[item.category].push(item);
+    return acc;
+  }, {});
 
-    const cpages = [
-        { offer: "30% off",
-          name: "Sony PlayStation 5 Standard Edtion 825 GB", 
-          icon: "https://relay-bl-in-records.sgp1.cdn.digitaloceanspaces.com/GameNation/EA_976", 
-          description: "₹36999" ,
-          path: '',
-          cut: "₹52999",
-        },
-      
-        {  offer:"no offers",
-            name: "Sony PlayStation 5 Digital Edition 825 GB ", 
-            icon: "https://relay-bl-in-records.sgp1.cdn.digitaloceanspaces.com/GameNation/EA_977", 
-            description: "₹44990" ,
-            path: "",
-            cut:"",
-          },{  offer:"13% off",
-            name: "Sony PlayStation 5 Slim Disc Edition 1TB", 
-            icon: "https://relay-bl-in-records.sgp1.cdn.digitaloceanspaces.com/GameNation/EA_976", 
-            description: "₹41990" ,
-            path: "",
-            cut:"47999",
-          },
-          {  offer:"36% off",
-            name: "Sony PlayStation 4 slim  1 TB jet black ", 
-            icon: "https://relay-bl-in-records.sgp1.cdn.digitaloceanspaces.com/GameNation/EA_990", 
-            description: "₹17999" ,
-            path: "",
-            cut:"27999",
-          }, 
-          {  offer:"32% off",
-            name: "Sony PlayStation 4 Standard 1 TB Jet Black ", 
-            icon: "https://relay-bl-in-records.sgp1.cdn.digitaloceanspaces.com/GameNation/EA_990", 
-            description: "₹16999" ,
-            path: "",
-            cut:"24999",
-          },
-      ];
-      
-      const Consol = ({ showNav = true , showFoot = true }) => {
-        const [hoveredIndex, setHoveredIndex] = useState(null);
-  return (  
-    <>
-    {showNav && <Nav />} 
-    <div> 
-    <div>   </div>
-    <div id="all1">
+  const consoleItems = groupedItems["Console"] || [];
 
-<div style={styles.container} id="con1">
-  {cpages.map((cpages, index) => {
-    let initialX = 0;
-    let delay = 0;
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:5000/user/products/${id}`)
+      .then(() => {
+        setItems(prev => prev.filter(item => item._id !== id));
+      })
+      .catch(err => console.error("Delete error:", err));
+  };
 
-    if (cpages.name === "Sony PlayStation 5 Standard Edtion 825 GB") {
-      
-    } else if (cpages.name === "Sony PlayStation 4 Standard 1 TB Jet Black"){}
-    else if (cpages.name === "Sony PlayStation 4 slim  1 TB jet black "){}
-    else if (cpages.name === "Sony PlayStation 5 Slim Disc Edition 1TB "){}
-    else if (cpages.name === "Sony PlayStation 5 Digital Edition 825 GB "){}
-    
-
-
-    return ( 
-   
-      <div
-    
-        style={{
-          ...styles.cpagesBox,
-          ...(hoveredIndex === index ? styles.cpagesBoxHover : {}),
-        }}
-        className="cpagesbox"
-        onMouseEnter={() => setHoveredIndex(index)}
-        onMouseLeave={() => setHoveredIndex(null)}
-
-      >  
+  const handleUpdate = (id) => {
   
-        <img src={cpages.icon} alt={cpages.name} style={styles.icon} />
-        <p style={styles.cpagesoffer} id="offer">{cpages.offer} </p>
-       <p style={styles.cpagesName} > <h3>{cpages.name} </h3></p> 
-      <h2>  <p style={styles.description}> <h3>{cpages.description} </h3></p>  </h2>
-       <s> <p style={styles.cut} id="cut">{cpages.cut}</p> </s> 
-        <button id="bb1b">
-        <Link to={cpages.path} style={{ textDecoration: "none", color: "black" }}>BUY NOW</Link>
-</button>
+    console.log("Update clicked for:", id);
+  };
+
+  return (
+    <div>
+      {showNav && <Nav />}
+      <div id="all1"> <h1 id="h321">CONSOLES ON SALE</h1>
+        {error && <div style={styles.error}>{error}</div>}
+        (
+          
+            <div style={styles.container}>
+              {/* <div style={styles.heading}>Game on sales</div> */}
+              <div style={styles.container}>
+                {consoleItems.map(item => (
+                  <div key={item._id} style={styles.card} className="card1">
+                    <img
+                      src={`http://localhost:5000${item.image}`}
+                      alt={item.name}
+                      style={styles.image}
+                    />
+                    <div style={styles.offer}>{item.offer}%</div>
+                    <div style={styles.name}>{item.name}</div>
+                    <div style={styles.detail}><s>₹{item.price}</s></div>
+                    <div style={styles.detail}>₹{item.offerPrice}</div>
+                      <button id="bb1b" onClick={() => navigate("/buynow", { state: { product: item } })}> BUY NOW</button>
+                    <button id="bb2b" onClick={() => handleAddToCart(item)}>add to cart</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>No products found in the "Games" category.</div>
+          )
+        
       </div>
-    );
-  })}
-</div> 
-<div>
-</div>
-    </div>  </div>
-    </>
-)
-};
+        <div id="footerr">
+      {showFoot && <Footer/>} </div>
+    </div>
+  );
+}
 
 const styles = {
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: '30px',
+   
+    backgroundColor: 'black',
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    width: '210px',
+    padding: '15px',
 
-     body:{
-      backgroundColor:"black",
-      padding:"0px",
-      
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    fontFamily: 'Arial, sans-serif',
+  },
+  image: {
+    width: "200px",
+    height: "200px",
+    marginBottom: "10px",
+  },
+  name: {
+    color: '#0073e6',
+    fontSize: '18px',
+    fontWeight: 'bold',
+    margin: '10px 0 5px',
+    textAlign: 'center',
+  },
+  detail: {
+    fontSize: '16px',
+    margin: '4px 0',
+    color: '#000',
+  },
+  offer: {
+    backgroundColor: '#3d550c',
+    color: 'wheat',
+    padding: '4px 10px',
+    borderRadius: '15px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    marginBottom: '8px',
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginTop: '20px',
+    fontWeight: 'bold',
+  },
+  loading: {
+    textAlign: 'center',
+    fontSize: '18px',
+    color: '#555',
+    marginTop: '40px',
+  },
+  heading: {
+    textAlign: 'center',
+    fontSize: '28px',
+    marginBottom: '20px',
+    color: 'white',
+    backgroundColor: 'black',
+    padding: '10px',
+    borderRadius: '5px',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+  },
+};
 
-     },
-    container: {
-      display: "flex",
-      flexWrap: "wrap",
-      backgroundColor: "black",
-      padding: "40px",
-      gap: "50px",
-      
-      
-      
-     
-    },
-    heading: {
-      textAlign: "center",
-      fontSize: "28px",
-      
-      marginBottom: "20px",
-    },
-    cpagesBox: {
-      width: "210px",
-      height: "410px",
-      backgroundColor: "  rgb(255, 255, 255)",
-      padding: "15px",
-     
-      borderRadius: "8px",
-      textAlign: "center",
-      transition: "transform 0.3s, box-shadow 0.3s",
-      cursor: "pointer",
-      boxShadow: "0 4px 10px rgb(0, 0, 0)",
-    },
-    cpagesBoxHover: {
-      boxShadow: "0px 0px 15px rgb(255, 255, 255)",
-      transform: "scale(1.1)",
-    },
-    icon: {
-      width: "200px",
-      height: "200px",
-      marginBottom: "10px",
-    },
-  
-    cpagesName: {
-      fontSize: "14px",
-      fontWeight: "bold",
-      color: "#00aaff",
-      // color: "rgb(8, 95, 36)",
-      marginBottom: "5px",
-    },
-    description: {
-      fontSize: "12px",
-      color: "black",
-    },
-
-  }
-
-export default Consol
-
+export default Consol;

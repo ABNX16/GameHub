@@ -1,41 +1,57 @@
-#offer {
-    margin-left: -8px;
-    margin-top: -5px;
-    background-color: rgb(56, 88, 5);
-    color: wheat;
-    width: 80px;
-    height: 20px;
-    border-radius: 50px;
-    padding: 3px;
-}
+
 
 #bb1b {
     background-color: #ffffff;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: small;
     color: black;
     text-decoration: none;
     border: black 2px solid;
     border-radius: 50px;
     width: 120px;
-    padding: 10px;
-    margin-top: -200px;
+   
+    
+
+}
+body {
+    font-family: 'Arial',
+        sans-serif;
+    background-color: black;
+  
+    margin: 0;
+    padding: 0;
+ 
+
+}
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+#bb2b {
+    background-color: #ffffff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: small;
+    color: black;
+    text-decoration: none;
+    border: black 2px solid;
+    border-radius: 50px;
+    width: 120px;
+    
 
 }
 #bb1b:hover{
     background:green;
 }
-
-#con1 {
-    background-color: black;
+#bb2b:hover{
+    background:rgb(0, 66, 128);
 }
 
-#cut {
-    color: black;
-}
 
-S {
-    color: black;
-}
 #bb12 {
     background-color: #5cbbd4;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -60,5 +76,39 @@ S {
     
 }
 
-
-
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 7px 14px #37ff14ac;
+    cursor: pointer;
+  }
+  
+.card1 {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card1:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 14px #09b3ecac;
+    cursor: pointer;
+  }
+  .card2 {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card2:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 14px #ec1109ac;
+    cursor: pointer;
+  }
+  #h321{
+    color: whitesmoke;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  #footerr{
+    margin-top: 10px;
+  }
+  

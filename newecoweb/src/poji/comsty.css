@@ -1,0 +1,135 @@
+.container {
+  padding: 30px 15px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #121212;
+  min-height: 100vh;
+}
+
+.heading {
+  text-align: center;
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 25px;
+  font-weight: bold;
+  margin-top: -10px;
+  padding-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  align-items: center;
+  text-align: center;
+}
+
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: black;
+}
+
+.label {
+  font-weight: 600;
+  color: #00bcd4;
+  font-size: 13px;
+}
+
+.value {
+  color: black;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.status {
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 13px;
+  width: fit-content;
+  align-self: center;
+}
+
+.status.pending {
+  background-color: #f57c00;
+  color: #fff;
+}
+
+.status.visited {
+  background-color: #0288d1;
+  color: #fff;
+}
+.status.rejected {
+  background-color: #ff0808;
+  color: #fff;
+}
+.status.accepted {
+  background-color: #43a047;
+  color: #fff;
+}
+
+.no-data {
+  text-align: center;
+  color: #aaa;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+.address-box {
+  background-color: black;
+  border: 1px solid #444;
+  border-radius: 5px;
+  padding: 8px;
+  margin-top: 4px;
+  color: white;
+  font-size: 13px;
+}
+
+.button {
+  padding: 8px;
+  background-color: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 8px;
+  transition: background-color 0.3s;
+}
+
+.statusTag {
+  background-color: #ffca28;
+  color: #212121;
+  padding: 4px 7px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+

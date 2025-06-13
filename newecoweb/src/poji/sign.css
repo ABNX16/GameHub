@@ -1,0 +1,180 @@
+#sign-body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f2f5;
+    background-image: url("https://wallpapersok.com/images/hd/playstation-controller-icons-in-solid-black-tueyy14z9zuhvq5e.jpg");
+    height: 100%;
+    margin: 0;
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+  }
+  
+  #sign-form {
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 40px 50px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    max-width: 400px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: white;
+    height: 500px;
+    margin-top: 110px;
+    margin-left: 550px;
+    /* justify-content: center;
+    align-items: center; */
+  }
+  
+  #sign-heading {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+  }
+  
+  #username-input,
+  #password-input,
+   #cpassword-input,
+  #useremail-input,
+ #userphone-input {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 16px;
+    outline: none;
+  }
+    #username-input,
+     #userphone-input{
+      width: 370px;
+     }
+  
+  #username-input::placeholder,
+   #useremail-input::placeholder,
+    #userphone-input::placeholder,
+  #password-input::placeholder,
+   #cpassword-input::placeholder {
+    color: #ddd;
+  }
+  
+  #login-button {
+    padding: 14px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00e676, #00bfa5);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+  
+  #login-button:hover {
+    background: linear-gradient(135deg, #00bfa5, #00e676);
+    transform: scale(1.05);
+  }
+
+
+#sign-form {
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: white;
+}
+
+#sign-heading {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+input::placeholder {
+  color: #ddd;
+}
+
+button[type="submit"] {
+  padding: 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #00e676, #00bfa5);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #00bfa5, #00e676);
+  transform: scale(1.05);
+}
+.auth-links {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.auth-links a {
+  color: #00e676;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+  color: #00bfa5;
+  text-decoration: underline;
+}
+
+
+#error-message {
+  color: #ff5252;
+  text-align: center;
+  font-weight: 500;
+  margin-top: -10px;
+}
+
+  
+  #error-message {
+    color: #ff5252;
+    text-align: center;
+    font-weight: 500;
+    margin-top: -10px;
+  }
+  #abut{
+    margin-top: -150px;
+  }
+  #ii2{
+    margin-top: -40px;
+    margin-left: -1850px;
+    
+    
+  }
