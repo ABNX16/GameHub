@@ -64,7 +64,7 @@ const Accpet = () => {
   useEffect(() => {
     const fetchAccepted = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/accept`);
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/accept/`);
         setAcceptedSellers(res.data);
       } catch (error) {
         console.error('Error fetching accepted sellers:', error);
@@ -113,7 +113,7 @@ const Accpet = () => {
                 <tr key={seller._id}>
                   <td style={styles.td}>
                     <img
-                      src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${seller.productImage}`}
+                      src={`http://localhost:5000/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}
                     />

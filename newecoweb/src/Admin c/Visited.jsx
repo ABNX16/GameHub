@@ -34,7 +34,7 @@ const styles = {
     padding: '12px 15px',
     textAlign: 'left',
     fontWeight: '600',
-    textTransform: 'capitalize',
+    textTransform: 'capitalize', // Capitalize first letter of header text
   },
   td: {
     padding: '12px 15px',
@@ -56,7 +56,6 @@ const styles = {
     padding: '20px',
     backgroundColor: '#ffffff',
     marginTop: '20px',
-    borderRadius: '10px',
   },
   buttonAccept: {
     backgroundColor: 'green',
@@ -77,44 +76,74 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
   },
+  rowHover: {
+    transition: 'background-color 0.3s ease',
+  },
 };
 
 const Visited = () => {
   const [visitedSellers, setVisitedSellers] = useState([]);
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchVisited = async () => {
       try {
-        const res = await axios.get(`${BACKEND_URL}/visited`);
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/visited`);
         setVisitedSellers(res.data);
       } catch (error) {
         console.error('Error fetching visited sellers:', error);
       }
     };
     fetchVisited();
-  }, [BACKEND_URL]);
+  }, []);
 
-  const handleAccept = async (seller) => {
-    if (window.confirm('Are you sure you want to accept this product?')) {
+  const handleDeladd = async (seller) => {
+    const userEmail = localStorage.getItem('userEmail');
+ 
+    const confirmDelete = window.confirm('Are you sure you accept this product?');
+    if (confirmDelete) {
       try {
-        await axios.post(`${BACKEND_URL}/accept/add`, seller);
-        await axios.delete(`${BACKEND_URL}/visited/delete/${seller._id}`);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/accept/add`, {
+          userEmail: seller.userEmail,
+          name: seller.name,
+          number: seller.number,
+          email: seller.email,
+          address: seller.address,
+          productName: seller.productName,
+          category: seller.category,
+          purchaseDate: seller.purchaseDate,
+          upiId: seller.upiId,
+          productImage: seller.productImage,
+        });
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/visited/delete/${seller._id}`);
         setVisitedSellers((prev) => prev.filter((s) => s._id !== seller._id));
       } catch (error) {
-        console.error('Error accepting seller:', error);
+        console.error('Error updating visited sellers:', error);
       }
     }
   };
 
-  const handleReject = async (seller) => {
-    if (window.confirm('Are you sure you want to reject this product?')) {
+  const handleDel = async (seller) => {
+    const userEmail = localStorage.getItem('userEmail');
+   
+   const confirmDelete = window.confirm('Are you sure you accept this product?');
+    if (confirmDelete) {
       try {
-        await axios.post(`${BACKEND_URL}/reject/add`, seller);
-        await axios.delete(`${BACKEND_URL}/visited/delete/${seller._id}`);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}:5000/reject/add`, {
+          userEmail: seller.userEmail,
+          name: seller.name,
+          number: seller.number,
+          email: seller.email,
+          address: seller.address,
+          productName: seller.productName,
+          category: seller.category,
+          purchaseDate: seller.purchaseDate,
+          upiId: seller.upiId,
+          productImage: seller.productImage,
+        });
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/visited/delete/${seller._id}`);
         setVisitedSellers((prev) => prev.filter((s) => s._id !== seller._id));
       } catch (error) {
-        console.error('Error rejecting seller:', error);
+        console.error('Error updating visited sellers:', error);
       }
     }
   };
@@ -131,7 +160,7 @@ const Visited = () => {
           <table style={styles.table}>
             <thead>
               <tr>
-                <th style={styles.th}>Image</th>
+              <th style={styles.th}>Image</th>
                 <th style={styles.th}>Product</th>
                 <th style={styles.th}>Seller</th>
                 <th style={styles.th}>Phone</th>
@@ -140,6 +169,7 @@ const Visited = () => {
                 <th style={styles.th}>Category</th>
                 <th style={styles.th}>Purchased</th>
                 <th style={styles.th}>UPI</th>
+                
                 <th style={styles.th}>Result</th>
               </tr>
             </thead>
@@ -147,18 +177,18 @@ const Visited = () => {
               {visitedSellers.map((seller) => (
                 <tr
                   key={seller._id}
+                  style={{ cursor: 'default' }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f9f9f9')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >
                   <td style={styles.td}>
                     <img
-                      src={`${BACKEND_URL}/uploads/${seller.productImage}`}
+                      src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}
-                      onError={(e) => (e.target.src = 'https://via.placeholder.com/70')}
                     />
                   </td>
-                  <td style={styles.td}>{seller.productName}</td>
+                   <td style={styles.td}>{seller.productName}</td>
                   <td style={styles.td}>{seller.name}</td>
                   <td style={styles.td}>{seller.number}</td>
                   <td style={styles.td}>{seller.email}</td>
@@ -169,19 +199,19 @@ const Visited = () => {
                   <td style={styles.td}>
                     <button
                       style={styles.buttonAccept}
-                      onClick={() => handleAccept(seller)}
+                      onClick={() => handleDeladd(seller)}
                       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#005700')}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'green')}
                     >
-                      ACCEPT
+                      ACCEPTED
                     </button>
                     <button
                       style={styles.buttonReject}
-                      onClick={() => handleReject(seller)}
+                      onClick={() => handleDel(seller)}
                       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#7a0000')}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'red')}
                     >
-                      REJECT
+                      REJECTED
                     </button>
                   </td>
                 </tr>

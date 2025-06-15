@@ -9,9 +9,13 @@ function Allpro() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/admin/products`)
-      .then(response => setItems(response.data))
-      .catch(() => setError('Failed to load products.'));
+    axios.get( `${process.env.REACT_APP_BACKEND_URL}/admin/products`)
+      .then(response => {
+        setItems(response.data);
+      })
+      .catch(error => {
+        setError('Failed to load products.');
+      });
   }, []);
 
   const styles = {
@@ -131,7 +135,7 @@ function Allpro() {
 
   return (
     <div>
-      <Adminnav />
+      <div><Adminnav /></div>
       <div id="all-products-page">
         {error && <div style={styles.error}>{error}</div>}
         {Object.keys(groupedItems).length > 0 && (

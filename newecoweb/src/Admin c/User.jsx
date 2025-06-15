@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Adminnav from "./AdminNav";
-
 const styles = {
   container: {
     padding: "30px",
@@ -16,7 +15,7 @@ const styles = {
     marginBottom: "30px",
     textAlign: "center",
     textTransform: "uppercase",
-    borderBottom: "3px solid #007bff",
+    borderBottom: '3px solid #007bff',
     letterSpacing: "1px",
   },
   error: {
@@ -54,15 +53,15 @@ const styles = {
   },
 };
 
+
 const User = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get(`${BACKEND_URL}/userlist`);
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/userlist`);
         setUsers(res.data.users);
       } catch (err) {
         console.error("Error fetching users:", err);
@@ -71,22 +70,22 @@ const User = () => {
     };
 
     fetchUsers();
-  }, [BACKEND_URL]);
+  }, []);
 
   return (
     <div>
-      <Adminnav />
+      <div><Adminnav /></div>
       <div style={styles.container}>
         <h2 style={styles.heading}>User List</h2>
         {error && <p style={styles.error}>{error}</p>}
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={styles.th}>User Name</th>
+              <th style={styles.th}>User-Name</th>
               <th style={styles.th}>Email</th>
-              <th style={styles.th}>Phone</th>
-              {/* <th style={styles.th}>Password</th> */}
-              {/* <th style={styles.th}>Token</th> */}
+              <th style={styles.th}>Number</th>
+              <th style={styles.th}>Password</th>
+               <th style={styles.th}>Token</th> 
             </tr>
           </thead>
           <tbody>
@@ -95,8 +94,10 @@ const User = () => {
                 <td style={styles.td}>{user.name}</td>
                 <td style={styles.td}>{user.email}</td>
                 <td style={styles.td}>{user.phone}</td>
-                {/* <td style={styles.td}>{user.password}</td> */}
-                {/* <td style={styles.td}>{localStorage.getItem("token")}</td> */}
+                <td style={styles.td}>{user.password}</td>
+
+                <td style={styles.td}>{localStorage.getItem('token')}</td>
+
               </tr>
             ))}
           </tbody>

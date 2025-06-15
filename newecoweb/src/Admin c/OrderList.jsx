@@ -9,6 +9,21 @@ const styles = {
     backgroundColor: '#f0f2f5',
     minHeight: '100vh',
   },
+  infoBox: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '25px',
+    padding: '20px',
+    backgroundColor: '#ffffff',
+    borderRadius: '10px',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+  },
+  infoItem: {
+    fontSize: '16px',
+    color: '#333',
+    lineHeight: '1.6',
+  },
   heading: {
     textAlign: 'center',
     fontSize: '30px',
@@ -93,7 +108,7 @@ const OrderList = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/order/list`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}5000/order/list`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
