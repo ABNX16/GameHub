@@ -83,6 +83,20 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ success: false, message: "Login failed" });
   }
 });
+// GET: Verify JWT and return user data
+router.get('/verify-token', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, user });
+  } catch (err) {
+    console.error("Token verification error:", err);
+    res.status(500).json({ success: false, message: "Token verification failed" });
+  }
+});
 
 
 // GET: Profile (protected)
