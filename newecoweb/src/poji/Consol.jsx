@@ -13,7 +13,7 @@ function Consol({ showNav = true, showFoot = true }) {
   const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
-    axios.get(`${baseUrl}/user/products`)
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/products`)
       .then(response => {
         setItems(response.data);
       })
@@ -26,7 +26,7 @@ function Consol({ showNav = true, showFoot = true }) {
     const userEmail = localStorage.getItem('userEmail');
     if (!userEmail) return alert('Please login first');
 
-    axios.post(`${baseUrl}/cart/add`, { ...item, userEmail })
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/cart/add`, { ...item, userEmail })
       .then(() => alert("Added to cart"))
       .catch(() => alert("Item already in cart"));
   };
