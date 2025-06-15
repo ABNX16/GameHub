@@ -8,9 +8,10 @@ function Page({ showNav = true, showFoot = true }) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
-    axios.get('http://localhost:5000/user/products')
+    axios.get(`${baseUrl}/user/products`)
       .then(response => {
         setItems(response.data);
         setLoading(false);
@@ -19,9 +20,8 @@ function Page({ showNav = true, showFoot = true }) {
         setError('Failed to load products.');
         setLoading(false);
       });
-  }, []);
+  }, [baseUrl]);
 
- 
   const groupedItems = items.reduce((acc, item) => {
     if (!acc[item.category]) acc[item.category] = [];
     acc[item.category].push(item);
@@ -29,7 +29,7 @@ function Page({ showNav = true, showFoot = true }) {
   }, {});
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/user/products/${id}`)
+    axios.delete(`${baseUrl}/user/products/${id}`)
       .then(() => {
         setItems(prev => prev.filter(item => item._id !== id));
       })
@@ -37,7 +37,6 @@ function Page({ showNav = true, showFoot = true }) {
   };
 
   const handleUpdate = (id) => {
-    
     console.log("Update clicked for:", id);
   };
 
@@ -53,21 +52,20 @@ function Page({ showNav = true, showFoot = true }) {
             <div style={styles.container}>
               {Object.keys(groupedItems).map(category => (
                 <div key={category} style={{ width: '100%' }}>
-                  {/* <div style={styles.heading}>{category} on sale</div> */}
                   <div style={styles.container}>
                     {groupedItems[category].map(item => (
                       <div key={item._id} style={styles.card}>
-                       <img
-                        src={`http://localhost:5000${item.image}`}
-                        alt={item.name}
-                        style={styles.image}
-                      />
+                        <img
+                          src={`${baseUrl}${item.image}`}
+                          alt={item.name}
+                          style={styles.image}
+                        />
                         <div style={styles.offer}>{item.offer}%</div>
                         <div style={styles.name}>{item.name}</div>
-                        <div style= {styles.detail}> <s>₹{item.price} </s></div>
+                        <div style={styles.detail}><s>₹{item.price}</s></div>
                         <div style={styles.detail}>₹{item.offerPrice}</div>
-                        <button id="bb1b" >  BUY NOW </button>
-                        <button id="bb2b" > add to cart</button>
+                        <button id="bb1b">BUY NOW</button>
+                        <button id="bb2b">Add to Cart</button>
                       </div>
                     ))}
                   </div>
@@ -96,7 +94,6 @@ const styles = {
     backgroundColor: '#ffffff',
     borderRadius: '16px',
     width: '250px',
-   
     padding: '15px',
     boxShadow: '0 0 10px rgba(0,0,0,0.2)',
     display: 'flex',
@@ -108,9 +105,6 @@ const styles = {
     width: "200px",
     height: "200px",
     marginBottom: "10px",
-  },
-  productId: {
-    display: 'none',
   },
   name: {
     color: '#0073e6',
@@ -146,38 +140,6 @@ const styles = {
     color: '#555',
     marginTop: '40px',
   },
-  heading: {
-    textAlign: 'center',
-    fontSize: '28px',
-    marginBottom: '20px',
-    color: 'white',
-    backgroundColor: 'black',
-    padding: '10px',
-    borderRadius: '5px',
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-  },
-  button: {
-    marginTop: '10px',
-    padding: '10px 20px',
-    fontSize: '16px',
-    border: '2px solid black',
-    borderRadius: '30px',
-    backgroundColor: 'white',
-    color: 'black',
-  
-   
-  },
-  updateButton: {
-    marginTop: '10px',
-    padding: '8px 15px',
-    fontSize: '14px',
-    borderRadius: '5px',
-    border: 'none',
-    backgroundColor: '#4d94ff',
-    color: 'white',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-  },
 };
+
 export default Page;

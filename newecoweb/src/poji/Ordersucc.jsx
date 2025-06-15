@@ -7,6 +7,7 @@ const Ordersucc = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const product = location.state?.product || {};
+  const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
   return (
     <div>
@@ -20,13 +21,15 @@ const Ordersucc = () => {
           <div className="product-info">
             {product.image && (
               <img
-                src={`http://localhost:5000${product.image}`}
-                alt={product.name}
+                src={`${baseUrl}${product.image}`}
+                alt={product.name || "Product"}
                 className="product-image"
               />
             )}
-            <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">₹{product.offerPrice || product.price}</p>
+            <h3 className="product-name">{product.name || "Product Name"}</h3>
+            <p className="product-price">
+              ₹{product.offerPrice || product.price || "0"}
+            </p>
           </div>
 
           <h2>Thank you for your order!</h2>

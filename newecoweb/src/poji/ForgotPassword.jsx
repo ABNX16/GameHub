@@ -9,6 +9,8 @@ function ForgotPassword() {
   const [confirmPass, setConfirmPass] = useState('');
   const [message, setMessage] = useState('');
 
+  const baseUrl = process.env.REACT_APP_BACKEND_URL;
+
   const handleReset = async (e) => {
     e.preventDefault();
 
@@ -18,17 +20,17 @@ function ForgotPassword() {
     }
 
     try {
-      const userRes = await axios.get("http://localhost:5000/userlist");
+      const userRes = await axios.get(`${baseUrl}/userlist`);
       const userList = userRes.data.users;
 
       const userExists = userList.find((user) => user.email === email);
 
       if (!userExists) {
-        setMessage("No account with this email.");
+        setMessage("No account found with this email.");
         return;
       }
 
-      const res = await axios.put("http://localhost:5000/userlist/reset-password", {
+      const res = await axios.put(`${baseUrl}/userlist/reset-password`, {
         email,
         newPassword: newPass
       });
@@ -42,7 +44,7 @@ function ForgotPassword() {
         setMessage(res.data.message || "Failed to update password.");
       }
     } catch (err) {
-      setMessage("Error occurred. Please try again.");
+      setMessage("An error occurred. Please try again.");
       console.error(err);
     }
   };
@@ -78,9 +80,11 @@ function ForgotPassword() {
 
         <button type="submit">Reset Password</button>
 
-        {message && <p id="error-message">{message}</p>} 
+        {message && <p id="error-message">{message}</p>}
+
         <div className="auth-links">
-         <p>Already have a acoount? <Link to='/'> SIgn IN</Link></p> </div>
+          <p>Already have an account? <Link to='/'>Sign In</Link></p>
+        </div>
       </form>
     </div>
   );

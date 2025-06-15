@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import './Sellerp.css';
 import axios from "axios";
 import Nav from "./Nav";
-import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 const indianStates = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -15,7 +15,9 @@ const indianStates = [
 
 const SellerP = () => {
   const navigate = useNavigate();
+  const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
+  // Form states
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -37,6 +39,7 @@ const SellerP = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const userEmail = localStorage.getItem('userEmail');
     if (!userEmail) return alert('Please login first');
 
@@ -51,7 +54,7 @@ const SellerP = () => {
     }
 
     const formData = new FormData();
-    formData.append('userEmail', userEmail);  
+    formData.append('userEmail', userEmail);
     formData.append('name', name);
     formData.append('number', number);
     formData.append('email', email);
@@ -68,18 +71,15 @@ const SellerP = () => {
     formData.append('productImage', file);
 
     try {
-      const res = await axios.post('http://localhost:5000/seller/addsell', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const res = await axios.post(`${baseUrl}/seller/addsell`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      console.log('Product added:', res.data);
       alert('Product added successfully!');
       navigate('/sellsucc');
     } catch (err) {
-      console.error('Error:', err.response?.data || err.message);
-      alert('Failed to add product.');
+      console.error('Upload error:', err.response?.data || err.message);
+      alert('Failed to add product. Try again.');
     }
   };
 
@@ -89,7 +89,7 @@ const SellerP = () => {
       <div className="seller-container">
         <h2 className="notice-title">Tell us about yourself and product</h2>
         <p className="notice-text">
-          Now we only accept products from <span className="highlight">Kerala</span>. And will reject products from elsewhere.
+          Now we only accept products from <span className="highlight">Kerala</span>.
         </p>
 
         <form onSubmit={handleSubmit} className="form-section">
@@ -128,12 +128,12 @@ const SellerP = () => {
             <legend>Payment Info</legend>
             <input type="text" placeholder="UPI ID" value={upiId} onChange={e => setUpiId(e.target.value)} required />
             <p className="note-text">
-              This <span className="highlight">UPI ID</span> will be used for payment after the product passes verification.
+              This <span className="highlight">UPI ID</span> will be used for payment after product verification.
             </p>
           </fieldset>
 
           <p className="note-text">
-            <span className="highlight">Please Note:</span> Payment amount is subject to product quality and our assessment guidelines.
+            <span className="highlight">Note:</span> Payment depends on product quality and verification.
           </p>
 
           <button type="submit" className="submit-button">Submit</button>

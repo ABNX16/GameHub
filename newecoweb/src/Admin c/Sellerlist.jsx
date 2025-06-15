@@ -60,29 +60,31 @@ const styles = {
 
 const SellerList = () => {
   const [sellers, setSellers] = useState([]);
-  
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchSellers = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/seller');
+        const res = await axios.get(`${BACKEND_URL}/seller`);
         setSellers(res.data);
       } catch (err) {
         console.error('Error fetching sellers:', err);
       }
     };
     fetchSellers();
-  }, []);
+  }, [BACKEND_URL]);
 
   const handleDel = async (seller) => {
     const userEmail = localStorage.getItem('userEmail');
-    if (!userEmail) return 
-    alert('Please login first');
+    if (!userEmail) {
+      alert('Please login first');
+      return;
+    }
+
     const confirmDelete = window.confirm("Are you sure you visited this address for verification?");
-    if (confirmDelete) 
-       {
+    if (confirmDelete) {
       try {
-        await axios.post('http://localhost:5000/visited/add', {
+        await axios.post(`${BACKEND_URL}/visited/add`, {
           userEmail: seller.userEmail,
           name: seller.name,
           number: seller.number,
@@ -94,9 +96,8 @@ const SellerList = () => {
           upiId: seller.upiId,
           productImage: seller.productImage,
         });
-        
 
-        await axios.delete(`http://localhost:5000/seller/delete/${seller._id}`);
+        await axios.delete(`${BACKEND_URL}/seller/delete/${seller._id}`);
         setSellers((prev) => prev.filter(s => s._id !== seller._id));
       } catch (error) {
         console.error('Error updating visited sellers:', error);
@@ -110,7 +111,7 @@ const SellerList = () => {
       <div style={styles.container}>
         <h2 style={styles.heading}>Seller Products</h2>
         {sellers.length === 0 ? (
-          <div style={styles.noOrders}></div>
+          <div style={styles.noOrders}>No seller products available.</div>
         ) : (
           <table style={styles.table}>
             <thead>
@@ -132,7 +133,7 @@ const SellerList = () => {
                 <tr key={seller._id}>
                   <td style={styles.td}>
                     <img
-                      src={`http://localhost:5000/uploads/${seller.productImage}`}
+                      src={`${BACKEND_URL}/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}
                     />

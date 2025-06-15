@@ -7,24 +7,25 @@ import Footer from './Footer';
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-   const userEmail = localStorage.getItem('userEmail');
+  const userEmail = localStorage.getItem('userEmail');
+  const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleDel = async (id) => {
     const confirmDelete = window.confirm('Are you sure you want to cancel this order?');
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://localhost:5000/order/delete/${id}`);
-        setOrders((prevOrders) => prevOrders.filter(order => order._id !== id));
-      } catch (error) {
-        console.error('Error deleting order:', error);
-      }
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`${baseUrl}/order/delete/${id}`);
+      setOrders((prevOrders) => prevOrders.filter(order => order._id !== id));
+    } catch (error) {
+      console.error('Error deleting order:', error);
     }
   };
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/order/${userEmail}`);
+        const response = await axios.get(`${baseUrl}/order/${userEmail}`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -33,8 +34,12 @@ const Orders = () => {
       }
     };
 
-    fetchOrders();
-  }, []);
+    if (userEmail) {
+      fetchOrders();
+    } else {
+      setLoading(false);
+    }
+  }, [baseUrl, userEmail]);
 
   if (loading) return <div className="no-data">Loading orders...</div>;
 
@@ -51,7 +56,7 @@ const Orders = () => {
               <div key={order._id} className="card">
                 {order.image && (
                   <img
-                    src={`http://localhost:5000${order.image}`}
+                    src={`${baseUrl}${order.image}`}
                     alt={order.productName}
                     className="image"
                   />
@@ -76,8 +81,7 @@ const Orders = () => {
           </div>
         )}
       </div> 
-      <div>
-      <Footer/></div> 
+      <Footer />
     </>
   );
 };

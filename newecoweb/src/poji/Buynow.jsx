@@ -47,9 +47,7 @@ function BuyNow() {
   const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
 
   useEffect(() => {
-    loadRazorpayScript().then((loaded) => {
-      setIsRazorpayLoaded(loaded);
-    });
+    loadRazorpayScript().then(setIsRazorpayLoaded);
   }, []);
 
   const handleChange = (e) => {
@@ -76,9 +74,11 @@ function BuyNow() {
       paymentMethod
     };
 
+    const baseUrl = process.env.REACT_APP_BACKEND_URL;
+
     if (paymentMethod === 'COD') {
       try {
-        await axios.post('http://localhost:5000/order/create', orderData);
+        await axios.post(`${baseUrl}/order/create`, orderData);
         alert("Order Placed Successfully!");
         navigate('/ordersuccess', { state: { product } });
       } catch (err) {
@@ -87,7 +87,7 @@ function BuyNow() {
       }
     } else {
       try {
-        const { data } = await axios.post('http://localhost:5000/order/razorpay', {
+        const { data } = await axios.post(`${baseUrl}/order/razorpay`, {
           amount: offerPrice * 100,
           userEmail
         });
@@ -102,7 +102,7 @@ function BuyNow() {
           order_id: data.order.id,
           handler: async function (response) {
             try {
-              await axios.post('http://localhost:5000/order/create', {
+              await axios.post(`${baseUrl}/order/create`, {
                 ...orderData,
                 razorpayPaymentId: response.razorpay_payment_id,
                 razorpayOrderId: response.razorpay_order_id,
@@ -138,7 +138,7 @@ function BuyNow() {
     <div style={styles.page}>
       <div style={styles.container}>
         <div style={styles.leftPanel}>
-          <img src={`http://localhost:5000${product.image}`} alt={product.name} style={styles.image} />
+          <img src={`${process.env.REACT_APP_BACKEND_URL}${product.image}`} alt={product.name} style={styles.image} />
           <h2 style={styles.productName}>{product.name}</h2>
           <p style={styles.price}>₹{offerPrice}</p>
         </div>
@@ -188,7 +188,6 @@ function BuyNow() {
                 style={styles.payButton}
                 onClick={(e) => handleAddtoorder(e, 'ONLINE')}
                 disabled={!isRazorpayLoaded}
-                title={!isRazorpayLoaded ? "Loading Payment Gateway..." : "Pay Now"}
               >
                 Pay Now
               </button>

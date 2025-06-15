@@ -1,56 +1,50 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './sign.css';
 
 function Sign() {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // Admin shortcut (optional)
-  const correctUsername = 'admin@gamehub.com';
-  const correctPassword = '@289777';
+  const navigate = useNavigate();
+  const baseUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Admin login shortcut
-    if (username === correctUsername && password === correctPassword) {
-      alert("Admin login successful");
+    // Admin Shortcut
+    if (email === 'admin@gamehub.com' && password === '@289777') {
+      alert("Admin login successful ✅");
       navigate('/admin12');
       return;
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/userlist/login", {
-        email: username,
-        password: password
+      const res = await axios.post(`${baseUrl}/userlist/login`, {
+        email,
+        password,
       });
 
       if (res.data.success) {
-        alert("Login successful");
+        alert("Login successful ✅");
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userEmail', username);
+        localStorage.setItem('userEmail', email);
         navigate('/home');
       }
     } catch (err) {
-      if (err.response && err.response.data) {
-        const msg = err.response.data.message;
+      const msg = err.response?.data?.message;
 
-        if (msg === "Wrong password") {
-          alert("Password is wrong, please reset the password");
-          navigate('/forgot-password');
-        } else if (msg === "Email doesn't exist") {
-          alert("No account with this email");
-          navigate('/signup');
-        } else {
-          alert(msg || "Login failed");
-        }
+      if (msg === "Wrong password") {
+        alert("Incorrect password. Redirecting to password reset.");
+        navigate('/forgot-password');
+      } else if (msg === "Email doesn't exist") {
+        alert("No account with this email. Please sign up.");
+        navigate('/signup');
       } else {
-        console.error("Unexpected login error:", err);
-        alert("Something went wrong. Please try again later.");
+        alert(msg || "Login failed. Try again later.");
       }
+
+      console.error("Login error:", err.response?.data || err.message);
     }
   };
 
@@ -62,31 +56,35 @@ function Sign() {
         <input
           id="username-input"
           type="email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
+          autoComplete="email"
           required
         />
 
         <input
           id="password-input"
           type="password"
+          name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
+          autoComplete="current-password"
           required
         />
 
         <button id="login-button" type="submit">Login</button>
 
         <div className="auth-links">
-          <p>Don't have an account? <Link to='/signup'>Create new account</Link></p>
-          <p>Forgot your password? <Link to='/forgot-password'>Reset password</Link></p>
+          <p>Don't have an account? <Link to="/signup">Create one</Link></p>
+          <p>Forgot your password? <Link to="/forgot-password">Reset here</Link></p>
         </div>
       </form>
 
-      <div id='ii2'>
-        <img src='/imh11.png' width={200} height={200} alt="login illustration" />
+      <div id="ii2">
+        <img src="/imh11.png" width={200} height={200} alt="Login Visual" />
       </div>
     </div>
   );

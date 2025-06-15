@@ -9,13 +9,9 @@ function Allpro() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/admin/products')
-      .then(response => {
-        setItems(response.data);
-      })
-      .catch(error => {
-        setError('Failed to load products.');
-      });
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/admin/products`)
+      .then(response => setItems(response.data))
+      .catch(() => setError('Failed to load products.'));
   }, []);
 
   const styles = {
@@ -123,7 +119,7 @@ function Allpro() {
   const handleDelete = (productId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (confirmDelete) {
-      axios.delete(`http://localhost:5000/admin/products/${productId}`)
+      axios.delete(`${process.env.REACT_APP_BACKEND_URL}/admin/products/${productId}`)
         .then(() => {
           setItems(items.filter(item => item._id !== productId));
         })
@@ -135,7 +131,7 @@ function Allpro() {
 
   return (
     <div>
-      <div><Adminnav /></div>
+      <Adminnav />
       <div id="all-products-page">
         {error && <div style={styles.error}>{error}</div>}
         {Object.keys(groupedItems).length > 0 && (
@@ -157,7 +153,7 @@ function Allpro() {
                       onMouseLeave={() => setHoveredCard(null)}
                     >
                       <img
-                        src={`http://localhost:5000${item.image}`}
+                        src={`${process.env.REACT_APP_BACKEND_URL}${item.image}`}
                         alt={item.name}
                         style={styles.image}
                         id={`product-image-${item._id}`}

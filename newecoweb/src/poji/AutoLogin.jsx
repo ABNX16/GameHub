@@ -11,25 +11,26 @@ function AutoLogin() {
 
     const verifyToken = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/userlist/verify-token', {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/userlist/verify-token`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
 
-        
-        if (res.data.success && location.pathname === '/') {
+        const currentPath = window.location.pathname;
+
+        if (res.data.success && currentPath === '/') {
           navigate('/home');
         }
       } catch (err) {
-        console.log("Auto-login failed:", err.response?.data?.message || err.message);
+        console.error("Auto-login failed:", err.response?.data?.message || err.message);
         localStorage.removeItem('token');
         localStorage.removeItem('userEmail');
       }
     };
 
     verifyToken();
-  }, []);
+  }, [navigate]);
 
   return null;
 }

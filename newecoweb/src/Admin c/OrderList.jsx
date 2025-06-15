@@ -9,21 +9,6 @@ const styles = {
     backgroundColor: '#f0f2f5',
     minHeight: '100vh',
   },
-  infoBox: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '25px',
-    padding: '20px',
-    backgroundColor: '#ffffff',
-    borderRadius: '10px',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
-  },
-  infoItem: {
-    fontSize: '16px',
-    color: '#333',
-    lineHeight: '1.6',
-  },
   heading: {
     textAlign: 'center',
     fontSize: '30px',
@@ -97,7 +82,7 @@ const OrderList = () => {
     const confirmDelete = window.confirm("Are you sure you completed this order?");
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:5000/order/delete/${id}`);
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/order/delete/${id}`);
         setOrders((prevOrders) => prevOrders.filter(order => order._id !== id));
       } catch (error) {
         console.error('Error deleting order:', error);
@@ -108,7 +93,7 @@ const OrderList = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/order/list');
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/order/list`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -147,7 +132,7 @@ const OrderList = () => {
                   <td style={styles.td}>
                     {order.image && (
                       <img
-                        src={`http://localhost:5000${order.image}`}
+                        src={`${process.env.REACT_APP_BACKEND_URL}${order.image}`}
                         alt={order.productName}
                         style={styles.image}
                       />

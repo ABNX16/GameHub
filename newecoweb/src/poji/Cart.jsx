@@ -10,8 +10,8 @@ function Cart({ showNav = true, showFoot = true }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
- const userEmail = localStorage.getItem('userEmail');
-
+  const userEmail = localStorage.getItem('userEmail');
+  const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     if (!userEmail) {
@@ -20,8 +20,7 @@ function Cart({ showNav = true, showFoot = true }) {
       return;
     }
 
-   axios.get(`http://localhost:5000/cart/${userEmail}`)
-
+    axios.get(`${baseUrl}/cart/${userEmail}`)
       .then((response) => {
         setCartItems(response.data);
         setLoading(false);
@@ -30,13 +29,13 @@ function Cart({ showNav = true, showFoot = true }) {
         setError('Failed to load cart items.');
         setLoading(false);
       });
-  }, [userEmail]);
+  }, [userEmail, baseUrl]);
 
   const handleRemoveFromCart = (id) => {
     const confirmDelete = window.confirm("Are you sure you want to remove this product from the cart?");
     if (!confirmDelete) return;
 
-    axios.delete(`http://localhost:5000/cart/${id}`)
+    axios.delete(`${baseUrl}/cart/${id}`)
       .then(() => {
         setCartItems(cartItems.filter(item => item._id !== id));
       })
@@ -60,7 +59,7 @@ function Cart({ showNav = true, showFoot = true }) {
               {cartItems.map(item => (
                 <div key={item._id} style={styles.cartItem}>
                   <img
-                    src={`http://localhost:5000${item.image}`}
+                    src={`${baseUrl}${item.image}`}
                     alt={item.name}
                     style={styles.image}
                   />

@@ -64,7 +64,7 @@ const Accpet = () => {
   useEffect(() => {
     const fetchAccepted = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/accept/');
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/accept`);
         setAcceptedSellers(res.data);
       } catch (error) {
         console.error('Error fetching accepted sellers:', error);
@@ -77,7 +77,7 @@ const Accpet = () => {
     const confirmDelete = window.confirm('Are you sure you reject this product?');
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:5000/accept/delete/${accept._id}`);
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/accept/delete/${accept._id}`);
         setAcceptedSellers((prev) => prev.filter((s) => s._id !== accept._id));
       } catch (error) {
         console.error('Error deleting accepted seller:', error);
@@ -113,7 +113,7 @@ const Accpet = () => {
                 <tr key={seller._id}>
                   <td style={styles.td}>
                     <img
-                      src={`http://localhost:5000/uploads/${seller.productImage}`}
+                      src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}
                     />
