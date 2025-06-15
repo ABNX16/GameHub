@@ -28,7 +28,7 @@ import Orders from './poji/Orders';
 import SellerP from './poji/Sellerp';
 import SellerList from './Admin c/Sellerlist';
 import Ordersucc from './poji/Ordersucc';
-import Sellsucc from './poji/sellsucc';
+import Sellsucc from './poji/Sellsucc';
 import Visited from './Admin c/Visited';
 import Accpet from './Admin c/Accept';
 import Selluser from './poji/Selluser';
