@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Adminnav from './AdminNav';
 
+// 🔗 Base URL from .env
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 function Allpro() {
   const [items, setItems] = useState([]);
@@ -10,7 +12,7 @@ function Allpro() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
-    axios.get("https://gamehub-cm5b.onrender.com/admin/products")
+    axios.get(`${BASE_URL}/admin/products`)
       .then(response => {
         setItems(response.data);
       })
@@ -124,7 +126,7 @@ function Allpro() {
   const handleDelete = (productId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (confirmDelete) {
-      axios.delete("https://gamehub-cm5b.onrender.com/admin/products/${productId}")
+      axios.delete(`${BASE_URL}/admin/products/${productId}`)
         .then(() => {
           setItems(items.filter(item => item._id !== productId));
         })
@@ -158,7 +160,7 @@ function Allpro() {
                       onMouseLeave={() => setHoveredCard(null)}
                     >
                       <img
-                        src={`https://gamehub-cm5b.onrender.com${item.image}`}
+                        src={`${BASE_URL}${item.image}`}
                         alt={item.name}
                         style={styles.image}
                         id={`product-image-${item._id}`}
