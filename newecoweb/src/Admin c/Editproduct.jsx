@@ -136,7 +136,7 @@ return(
         <input type="text" name="category" value={product.category} onChange={handleChange} style={styles.input} />
 
         <label style={styles.label}>Current Image</label>
-        <img src={`${process.env.REACT_APP_BACKEND_URL}${product.image}`} alt="product" style={styles.imagePreview} />
+        <img src={`https://gamehub-cm5b.onrender.com${product.image}`} alt="product" style={styles.imagePreview} />
 
         <label style={styles.label}>Change Image</label>
         <input type="file" name="image" onChange={handleImageChange} style={styles.fileInput}/>
