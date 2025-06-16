@@ -1,30 +1,28 @@
+/* Container */
 .seller-container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 40px auto;
-  padding: 30px;
-  background-color: #0d0d0d; 
-  color: #f1f1f1; 
+  padding: 30px 20px;
+  background-color: #0d0d0d;
+  color: #f1f1f1;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.1);
 }
 
-
+/* Headings and Notices */
 .notice-title {
   text-align: center;
-  font-size: 26px;
+  font-size: 28px;
   margin-bottom: 10px;
-  color: #32cd32; 
+  color: #32cd32;
 }
 
-.notice-text {
-  text-align: center;
-  font-size: 15px;
-  margin-bottom: 25px;
-  color: #cccccc;
-}
+.notice-text,
 .notice-email {
   text-align: center;
   font-size: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   color: #cccccc;
 }
 
@@ -33,49 +31,59 @@
   font-weight: bold;
 }
 
-
+/* Form */
 .form-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 }
 
+/* Fieldsets */
 .fieldset {
-  background-color: #1a1a1a; 
+  background-color: #1a1a1a;
   border: 1px solid #2a2a2a;
   border-radius: 8px;
-  padding: 18px;
+  padding: 20px;
 }
 
 .fieldset legend {
   font-weight: 600;
   color: #32cd32;
-  font-size: 15px;
+  font-size: 16px;
+  padding: 0 10px;
 }
 
-
+/* Inputs, Select, Textarea */
 input[type="text"],
+input[type="email"],
 input[type="date"],
 input[type="file"],
-input[type="email"],
-textarea,
-select {
+select,
+textarea {
   background-color: #2a2a2a;
   color: #f1f1f1;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 10px;
   margin-bottom: 15px;
   border: 1px solid #444;
   border-radius: 6px;
   font-size: 14px;
+  transition: border-color 0.2s;
 }
 
-textarea {
-  resize: vertical;
-  min-height: 80px;
+input[type="file"] {
+  padding: 6px;
 }
 
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #32cd32;
+}
+
+/* Labels */
 label {
   font-weight: 500;
   display: block;
@@ -83,7 +91,7 @@ label {
   color: #cccccc;
 }
 
-/* Sub-note */
+/* Notes */
 .note-text {
   font-size: 13px;
   text-align: center;
@@ -95,15 +103,30 @@ label {
 .submit-button {
   background-color: #32cd32;
   color: #0d0d0d;
-  padding: 12px 20px;
+  padding: 14px 20px;
   border: none;
   border-radius: 6px;
   font-size: 15px;
-  cursor: pointer;
   font-weight: 600;
-  transition: background 0.2s ease;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .submit-button:hover {
   background-color: #28a428;
+}
+
+/* Responsive for small screens */
+@media screen and (max-width: 600px) {
+  .seller-container {
+    padding: 20px 15px;
+  }
+
+  .notice-title {
+    font-size: 22px;
+  }
+
+  .fieldset legend {
+    font-size: 14px;
+  }
 }
