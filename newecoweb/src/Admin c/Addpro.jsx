@@ -28,7 +28,7 @@ function Addpro() {
     formData.append('image', file);  
 
     try{
-      const res= await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/addpro`,formData,{
+      const res= await axios.post("https://gamehub-cm5b.onrender.com/admin/addpro",formData,{
         headers:{
         'Content-Type': 'multipart/form-data',
         },

@@ -17,7 +17,7 @@ const EditProduct=()=>{
   const[newImage,setNewImage]= useState(null);
 
   useEffect(()=>{
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/admin/product/${id}`)
+    axios.get(`https://gamehub-cm5b.onrender.com/admin/product/${id}`)
     .then(res=> setProduct(res.data))
     .catch(err=> console.log(err));
 },[id]);
@@ -42,7 +42,7 @@ const handleSubmit= async(e) =>{
     formData.append('image',newImage);
 
   }
-  await axios.put(`${process.env.REACT_APP_BACKEND_URL}/admin/product/${id}`,formData);
+  await axios.put(`https://gamehub-cm5b.onrender.com/admin/product/${id}`,formData);
   navigate('/allpro')
 };
 

@@ -65,7 +65,7 @@ const SellerList = () => {
   useEffect(() => {
     const fetchSellers = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/seller`);
+        const res = await axios.get("https://gamehub-cm5b.onrender.com/seller");
         setSellers(res.data);
       } catch (err) {
         console.error('Error fetching sellers:', err);
@@ -82,7 +82,7 @@ const SellerList = () => {
     if (confirmDelete) 
        {
       try {
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/visited/add`, {
+        await axios.post("https://gamehub-cm5b.onrender.com/visited/add", {
           userEmail: seller.userEmail,
           name: seller.name,
           number: seller.number,
@@ -96,7 +96,7 @@ const SellerList = () => {
         });
         
 
-        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/seller/delete/${seller._id}`);
+        await axios.delete(`https://gamehub-cm5b.onrender.com/seller/delete/${seller._id}`);
         setSellers((prev) => prev.filter(s => s._id !== seller._id));
       } catch (error) {
         console.error('Error updating visited sellers:', error);
@@ -132,7 +132,7 @@ const SellerList = () => {
                 <tr key={seller._id}>
                   <td style={styles.td}>
                     <img
-                      src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${seller.productImage}`}
+                      src={`https://gamehub-cm5b.onrender.com/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}
                     />

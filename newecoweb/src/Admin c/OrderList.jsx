@@ -97,7 +97,7 @@ const OrderList = () => {
     const confirmDelete = window.confirm("Are you sure you completed this order?");
     if (confirmDelete) {
       try {
-        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/order/delete/${id}`);
+        await axios.delete(`https://gamehub-cm5b.onrender.com/order/delete/${id}`);
         setOrders((prevOrders) => prevOrders.filter(order => order._id !== id));
       } catch (error) {
         console.error('Error deleting order:', error);
@@ -108,7 +108,7 @@ const OrderList = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}5000/order/list`);
+        const response = await axios.get(`https://gamehub-cm5b.onrender.com5000/order/list`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -147,7 +147,7 @@ const OrderList = () => {
                   <td style={styles.td}>
                     {order.image && (
                       <img
-                        src={`${process.env.REACT_APP_BACKEND_URL}${order.image}`}
+                        src={`https://gamehub-cm5b.onrender.com${order.image}`}
                         alt={order.productName}
                         style={styles.image}
                       />

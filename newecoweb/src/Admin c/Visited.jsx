@@ -87,7 +87,7 @@ const Visited = () => {
   useEffect(() => {
     const fetchVisited = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/visited`);
+        const res = await axios.get("https://gamehub-cm5b.onrender.com/visited");
         setVisitedSellers(res.data);
       } catch (error) {
         console.error('Error fetching visited sellers:', error);
@@ -102,7 +102,7 @@ const Visited = () => {
     const confirmDelete = window.confirm('Are you sure you accept this product?');
     if (confirmDelete) {
       try {
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/accept/add`, {
+        await axios.post("https://gamehub-cm5b.onrender.com/accept/add", {
           userEmail: seller.userEmail,
           name: seller.name,
           number: seller.number,
@@ -114,7 +114,7 @@ const Visited = () => {
           upiId: seller.upiId,
           productImage: seller.productImage,
         });
-        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/visited/delete/${seller._id}`);
+        await axios.delete(`https://gamehub-cm5b.onrender.com/visited/delete/${seller._id}`);
         setVisitedSellers((prev) => prev.filter((s) => s._id !== seller._id));
       } catch (error) {
         console.error('Error updating visited sellers:', error);
@@ -128,7 +128,7 @@ const Visited = () => {
    const confirmDelete = window.confirm('Are you sure you accept this product?');
     if (confirmDelete) {
       try {
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}:5000/reject/add`, {
+        await axios.post("https://gamehub-cm5b.onrender.com:5000/reject/add", {
           userEmail: seller.userEmail,
           name: seller.name,
           number: seller.number,
@@ -140,7 +140,7 @@ const Visited = () => {
           upiId: seller.upiId,
           productImage: seller.productImage,
         });
-        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/visited/delete/${seller._id}`);
+        await axios.delete(`https://gamehub-cm5b.onrender.com/visited/delete/${seller._id}`);
         setVisitedSellers((prev) => prev.filter((s) => s._id !== seller._id));
       } catch (error) {
         console.error('Error updating visited sellers:', error);
@@ -183,7 +183,7 @@ const Visited = () => {
                 >
                   <td style={styles.td}>
                     <img
-                      src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${seller.productImage}`}
+                      src={`https://gamehub-cm5b.onrender.com/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}
                     />

@@ -61,7 +61,7 @@ const User = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/userlist`);
+        const res = await axios.get("https://gamehub-cm5b.onrender.com/userlist");
         setUsers(res.data.users);
       } catch (err) {
         console.error("Error fetching users:", err);

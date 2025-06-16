@@ -64,7 +64,7 @@ const Accpet = () => {
   useEffect(() => {
     const fetchAccepted = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/accept/`);
+        const res = await axios.get("https://gamehub-cm5b.onrender.com/accept/");
         setAcceptedSellers(res.data);
       } catch (error) {
         console.error('Error fetching accepted sellers:', error);
@@ -77,7 +77,7 @@ const Accpet = () => {
     const confirmDelete = window.confirm('Are you sure you reject this product?');
     if (confirmDelete) {
       try {
-        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/accept/delete/${accept._id}`);
+        await axios.delete("https://gamehub-cm5b.onrender.com/accept/delete/${accept._id}");
         setAcceptedSellers((prev) => prev.filter((s) => s._id !== accept._id));
       } catch (error) {
         console.error('Error deleting accepted seller:', error);
