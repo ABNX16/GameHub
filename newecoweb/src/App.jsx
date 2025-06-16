@@ -41,7 +41,7 @@ function App() {
   return (
     <div>
       <Router>
-        <AutoLogin /> 
+        
         <Routes>
           <Route path="/" element={<Sign />} />
           <Route path="/home" element={<Home />} />

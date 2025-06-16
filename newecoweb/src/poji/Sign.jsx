@@ -17,7 +17,7 @@ function Sign() {
     // Admin shortcut login
     if (email === 'admin@gamehub.com' && password === '@289777') {
       alert("Admin login successful ✅");
-      navigate('/home');
+      navigate('/admin12');
       return;
     }
 
