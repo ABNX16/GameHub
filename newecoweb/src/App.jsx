@@ -36,7 +36,7 @@ import Profile from './poji/Profile';
 import Soon from './poji/Soon';
 
 import AutoLogin from './poji/AutoLogin'; 
-import SellUser from './poji/Sellusers';
+import SellUser from './poji/Userselllist';
 import Sign1 from './poji/Sign1';
 
 function App() {

@@ -42,7 +42,7 @@ const Adminnav = () => {
      {
       name: "LOG OUT",
       icon: "https://png.pngtree.com/png-vector/20190930/ourmid/pngtree-exit-door-glyph-icon-vector-png-image_1772310.jpg",
-      path: "/"
+      path: "/sign1"
     }
   ];
 
