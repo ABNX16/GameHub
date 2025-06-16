@@ -1,5 +1,4 @@
-
-
+/* Original CSS */
 #bb1b {
     background-color: #ffffff;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -9,20 +8,15 @@
     border: black 2px solid;
     border-radius: 50px;
     width: 120px;
-   
-    
-
 }
+
 body {
-    font-family: 'Arial',
-        sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: black;
-  
     margin: 0;
     padding: 0;
- 
-
 }
+
 button {
     width: 100%;
     padding: 12px;
@@ -32,6 +26,7 @@ button {
     font-size: 16px;
     margin-top: 10px;
 }
+
 #bb2b {
     background-color: #ffffff;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -41,16 +36,15 @@ button {
     border: black 2px solid;
     border-radius: 50px;
     width: 120px;
-    
-
-}
-#bb1b:hover{
-    background:green;
-}
-#bb2b:hover{
-    background:rgb(0, 66, 128);
 }
 
+#bb1b:hover {
+    background: green;
+}
+
+#bb2b:hover {
+    background: rgb(0, 66, 128);
+}
 
 #bb12 {
     background-color: #5cbbd4;
@@ -63,6 +57,7 @@ button {
     padding: 8px;
     margin-top: 9px;
 }
+
 #bb11 {
     background-color: #5cbbd4;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -72,43 +67,73 @@ button {
     border-radius: 50px;
     width: 120px;
     padding: 0px;
-   
-    
 }
 
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .card:hover {
+}
+
+.card:hover {
     transform: scale(1.05);
     box-shadow: 0 7px 14px #37ff14ac;
     cursor: pointer;
-  }
-  
+}
+
 .card1 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .card1:hover {
+}
+
+.card1:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 14px #09b3ecac;
     cursor: pointer;
-  }
-  .card2 {
+}
+
+.card2 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .card2:hover {
+}
+
+.card2:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 14px #ec1109ac;
     cursor: pointer;
-  }
-  #h321{
+}
+
+#h321 {
     color: whitesmoke;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  #footerr{
+}
+
+#footerr {
     margin-top: 10px;
-  }
-  
+}
+
+
+@media (max-width: 600px) {
+    #bb1b, #bb2b, #bb11, #bb12, button {
+        width: 100% !important;
+        font-size: 14px;
+        padding: 10px;
+        margin-top: 8px;
+    }
+
+    .card, .card1, .card2 {
+        margin: 10px auto;
+        width: 90% !important;
+    }
+
+    #h321 {
+        font-size: 20px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    #footerr {
+        text-align: center;
+        font-size: 14px;
+    }
+}

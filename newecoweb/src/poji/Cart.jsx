@@ -10,9 +10,8 @@ function Cart({ showNav = true, showFoot = true }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
- const userEmail = localStorage.getItem('userEmail');
+  const userEmail = localStorage.getItem('userEmail');
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
-
 
   useEffect(() => {
     if (!userEmail) {
@@ -21,8 +20,7 @@ function Cart({ showNav = true, showFoot = true }) {
       return;
     }
 
-   axios.get(`${baseUrl}/cart/${userEmail}`)
-
+    axios.get(`${baseUrl}/cart/${userEmail}`)
       .then((response) => {
         setCartItems(response.data);
         setLoading(false);
@@ -115,6 +113,7 @@ const styles = {
     fontWeight: 'bold',
     marginBottom: '20px',
     color: 'white',
+    textAlign: 'center'
   },
   cartContainer: {
     display: 'flex',
@@ -125,30 +124,33 @@ const styles = {
   },
   cartItem: {
     display: 'flex',
-    alignItems: 'center',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     backgroundColor: '#D3D3D3',
     borderRadius: '12px',
     padding: '15px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    gap: '20px',
+    gap: '15px',
   },
   image: {
     width: '100px',
     height: '100px',
     objectFit: 'cover',
     borderRadius: '8px',
+    flexShrink: 0,
   },
   itemDetails: {
+    flexGrow: 1,
+    minWidth: '200px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    flex: '1',
+    justifyContent: 'center',
   },
   productName: {
     fontSize: '18px',
     fontWeight: 'bold',
     color: '#333',
+    marginBottom: '5px',
   },
   productPrice: {
     display: 'flex',
@@ -156,12 +158,12 @@ const styles = {
     gap: '10px',
   },
   offerPrice: {
-    fontSize: '20px',
+    fontSize: '18px',
     fontWeight: 'bold',
     color: 'black',
   },
   originalPrice: {
-    fontSize: '16px',
+    fontSize: '14px',
     color: 'black',
     textDecoration: 'line-through',
   },
@@ -172,14 +174,15 @@ const styles = {
     borderRadius: '20px',
     fontSize: '14px',
     fontWeight: 'bold',
-    alignSelf: 'flex-start',
     marginTop: '10px',
+    alignSelf: 'flex-start',
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    justifyContent: 'center',
     gap: '10px',
+    minWidth: '100px',
   },
   buyNowButton: {
     padding: '10px',
@@ -187,15 +190,16 @@ const styles = {
     color: '#fff',
     border: 'none',
     borderRadius: '6px',
-    fontSize: '16px',
+    fontSize: '14px',
     cursor: 'pointer',
   },
   removeButton: {
-    padding: '8px 15px',
+    padding: '8px 10px',
     backgroundColor: '#f44336',
     color: '#fff',
     border: 'none',
     borderRadius: '6px',
+    fontSize: '14px',
     cursor: 'pointer',
   },
   error: {
@@ -207,13 +211,13 @@ const styles = {
   loading: {
     textAlign: 'center',
     fontSize: '18px',
-    color: '#555',
+    color: '#ccc',
     marginTop: '40px',
   },
   emptyCartMessage: {
     textAlign: 'center',
     fontSize: '18px',
-    color: '#555',
+    color: '#ccc',
     marginTop: '40px',
   },
 };

@@ -134,6 +134,135 @@ function BuyNow() {
     }
   };
 
+  const styles = {
+    page: {
+      minHeight: '100vh',
+      backgroundColor: 'black',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '40px 20px',
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      color: "#32cd32"
+    },
+    container: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '90%',
+      maxWidth: '1100px',
+      backgroundColor: '#1B1B1B',
+      borderRadius: '12px',
+      overflow: 'hidden',
+    },
+    leftPanel: {
+      flex: '1',
+      backgroundColor: '#272727',
+      padding: '30px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      borderRight: '2px solid #32cd32',
+    },
+    image: {
+      width: '220px',
+      height: '220px',
+      borderRadius: '10px',
+      objectFit: 'cover',
+      marginBottom: '20px',
+    },
+    productName: {
+      fontSize: '22px',
+      fontWeight: '600',
+      textAlign: 'center',
+      marginBottom: '10px',
+      color: 'white',
+    },
+    price: {
+      fontSize: '20px',
+      fontWeight: 'bold',
+      color: 'white',
+    },
+    form: {
+      flex: '2',
+      padding: '40px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      color: 'white',
+    },
+    title: {
+      fontSize: '26px',
+      fontWeight: '600',
+      marginBottom: '20px',
+      color: '#32cd32',
+      textShadow: '0 0 3px rgba(46, 204, 113, 0.3)',
+    },
+    section: {
+      marginBottom: '25px',
+      color: 'white',
+    },
+    input12: {
+      width: '100%',
+      padding: '12px 14px',
+      marginBottom: '12px',
+      borderRadius: '8px',
+      border: '1.5px solid rgb(58, 58, 58)',
+      fontSize: '15px',
+      outline: 'none',
+      backgroundColor: '#222',
+      color: 'white',
+      transition: 'border-color 0.3s ease',
+    },
+    buttonGroup: {
+      display: 'flex',
+      gap: '15px',
+      marginTop: '15px',
+    },
+    codButton: {
+      flex: 1,
+      padding: '14px 0',
+      borderRadius: '8px',
+      border: 'none',
+      fontWeight: '600',
+      fontSize: '16px',
+      cursor: 'pointer',
+      backgroundColor: '#32cd32',
+      color: '#222',
+      transition: 'background-color 0.3s ease',
+    },
+    payButton: {
+      flex: 1,
+      padding: '14px 0',
+      borderRadius: '8px',
+      border: 'none',
+      fontWeight: '600',
+      fontSize: '16px',
+      cursor: 'pointer',
+      backgroundColor: '#32cd32',
+      color: '#222',
+      transition: 'background-color 0.3s ease',
+    }
+  };
+
+  // 📱 Mobile responsiveness logic
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    styles.container.flexDirection = 'column';
+    styles.leftPanel.borderRight = 'none';
+    styles.leftPanel.borderBottom = '2px solid #32cd32';
+    styles.leftPanel.padding = '20px';
+    styles.form.padding = '20px';
+    styles.image.width = '180px';
+    styles.image.height = '180px';
+    styles.productName.fontSize = '18px';
+    styles.price.fontSize = '18px';
+    styles.title.fontSize = '22px';
+    styles.buttonGroup.flexDirection = 'column';
+    styles.buttonGroup.gap = '10px';
+    styles.codButton.padding = '12px';
+    styles.payButton.padding = '12px';
+  }
+
   return (
     <div style={styles.page}>
       <div style={styles.container}>
@@ -198,114 +327,5 @@ function BuyNow() {
     </div>
   );
 }
-
-const styles = {
-  page: {
-    minHeight: '100vh',
-    backgroundColor: 'black',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '40px',
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    color: "#32cd32"
-  },
-  container: {
-    display: 'flex',
-    width: '90%',
-    maxWidth: '1100px',
-    backgroundColor: '#1B1B1B',
-    borderRadius: '12px',
-    overflow: 'hidden',
-  },
-  leftPanel: {
-    flex: '1',
-    backgroundColor: '#272727',
-    padding: '30px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderRight: '2px solid #32cd32',
-  },
-  image: {
-    width: '220px',
-    height: '220px',
-    borderRadius: '10px',
-    objectFit: 'cover',
-    marginBottom: '20px',
-  },
-  productName: {
-    fontSize: '22px',
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: '10px',
-    color: 'white',
-  },
-  price: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  form: {
-    flex: '2',
-    padding: '40px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    color: 'white',
-  },
-  title: {
-    fontSize: '26px',
-    fontWeight: '600',
-    marginBottom: '20px',
-    color: '#32cd32',
-    textShadow: '0 0 3px rgba(46, 204, 113, 0.3)',
-  },
-  section: {
-    marginBottom: '25px',
-    color: 'white',
-  },
-  input12: {
-    width: '100%',
-    padding: '12px 14px',
-    marginBottom: '12px',
-    borderRadius: '8px',
-    border: '1.5px solid rgb(58, 58, 58)',
-    fontSize: '15px',
-    outline: 'none',
-    backgroundColor: '#222',
-    color: 'white',
-    transition: 'border-color 0.3s ease',
-  },
-  buttonGroup: {
-    display: 'flex',
-    gap: '15px',
-    marginTop: '15px',
-  },
-  codButton: {
-    flex: 1,
-    padding: '14px 0',
-    borderRadius: '8px',
-    border: 'none',
-    fontWeight: '600',
-    fontSize: '16px',
-    cursor: 'pointer',
-    backgroundColor: '#32cd32',
-    color: '#222',
-    transition: 'background-color 0.3s ease',
-  },
-  payButton: {
-    flex: 1,
-    padding: '14px 0',
-    borderRadius: '8px',
-    border: 'none',
-    fontWeight: '600',
-    fontSize: '16px',
-    cursor: 'pointer',
-    backgroundColor: '#32cd32',
-    color: '#222',
-    transition: 'background-color 0.3s ease',
-  }
-};
 
 export default BuyNow;

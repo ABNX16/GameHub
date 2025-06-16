@@ -85,10 +85,12 @@
   background-color: #0288d1;
   color: #fff;
 }
+
 .status.rejected {
   background-color: #ff0808;
   color: #fff;
 }
+
 .status.accepted {
   background-color: #43a047;
   color: #fff;
@@ -121,6 +123,7 @@
   font-weight: 600;
   margin-top: 8px;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 .statusTag {
@@ -133,3 +136,57 @@
   align-self: flex-start;
 }
 
+/* ✅ Mobile Responsive Enhancements */
+@media (max-width: 600px) {
+  .heading {
+    font-size: 22px;
+  }
+
+  .image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .info {
+    font-size: 13px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+
+  .value {
+    font-size: 13px;
+  }
+
+  .status {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+
+  .button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .card-grid {
+    gap: 15px;
+  }
+
+  .statusTag {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .no-data {
+    font-size: 14px;
+  }
+
+  .address-box {
+    font-size: 12px;
+  }
+}
