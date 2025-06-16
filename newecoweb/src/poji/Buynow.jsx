@@ -247,20 +247,23 @@ function BuyNow() {
   // 📱 Mobile responsiveness logic
   const isMobile = window.innerWidth <= 768;
   if (isMobile) {
-    styles.container.flexDirection = 'column';
-    styles.leftPanel.borderRight = 'none';
-    styles.leftPanel.borderBottom = '2px solid #32cd32';
-    styles.leftPanel.padding = '20px';
-    styles.form.padding = '20px';
-    styles.image.width = '180px';
-    styles.image.height = '180px';
-    styles.productName.fontSize = '18px';
-    styles.price.fontSize = '18px';
-    styles.title.fontSize = '22px';
-    styles.buttonGroup.flexDirection = 'column';
-    styles.buttonGroup.gap = '10px';
-    styles.codButton.padding = '12px';
-    styles.payButton.padding = '12px';
+  
+styles.container.flexDirection = isMobile ? 'column' : 'row';
+styles.leftPanel.borderRight = isMobile ? 'none' : '2px solid #32cd32';
+styles.leftPanel.borderBottom = isMobile ? '2px solid #32cd32' : 'none';
+styles.leftPanel.padding = isMobile ? '20px' : '40px';
+styles.leftPanel.width = '100%';
+styles.form.padding = isMobile ? '20px' : '40px';
+styles.form.width = '100%';
+styles.image.width = isMobile ? '180px' : '250px';
+styles.image.height = isMobile ? '180px' : '250px';
+styles.productName.fontSize = isMobile ? '18px' : '24px';
+styles.price.fontSize = isMobile ? '18px' : '22px';
+styles.title.fontSize = isMobile ? '22px' : '28px';
+styles.buttonGroup.flexDirection = isMobile ? 'column' : 'row';
+styles.buttonGroup.gap = isMobile ? '10px' : '20px';
+styles.codButton.padding = isMobile ? '12px' : '16px';
+styles.payButton.padding = isMobile ? '12px' : '16px';
   }
 
   return (

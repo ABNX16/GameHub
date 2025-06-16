@@ -44,7 +44,7 @@ const GameNav = () => {
         <FaShoppingCart className="icon" /> </Link>
          <Link to='/orders' className="nav-link">
           <FaBox className="icon" /> </Link> 
-         <Link to='/' className="nav-link">
+         <Link to='/sign1' className="nav-link">
           <FaArrowAltCircleRight className="icon" /> </Link> 
            
         

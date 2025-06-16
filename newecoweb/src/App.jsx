@@ -37,6 +37,7 @@ import Soon from './poji/Soon';
 
 import AutoLogin from './poji/AutoLogin'; 
 import SellUser from './poji/Sellusers';
+import Sign1 from './poji/Sign1';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <AutoLogin/>
         <Routes>
           <Route path="/" element={<Sign />} />
+          <Route path="/sign1" element={<Sign1 />} />
           <Route path="/home" element={<Home />} />
           <Route path="/page" element={<Page />} />
           <Route path="/games" element={<Games />} />

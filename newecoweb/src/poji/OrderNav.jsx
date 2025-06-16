@@ -8,7 +8,7 @@ function OrderNav() {
     <div id='navbody'>
       <nav id='nav33'>
         <a href='./orders' id='h33'> BUY </a>
-        <a href='./sellusers' id='h45'> SELL </a>
+        <a href='./selluser' id='h45'> SELL </a>
       </nav>
     </div>  </div>
   )
