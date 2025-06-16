@@ -4,7 +4,7 @@ import OrderNav from './OrderNav';
 import './comsty.css';
 import Footer from './Footer';
 
-const SellUser = () => {
+const Userselllist = () => {
   const [allSellers, setAllSellers] = useState([]);
   const [loading, setLoading] = useState(true);
   const userEmail = localStorage.getItem('userEmail');
@@ -116,4 +116,4 @@ const SellUser = () => {
   );
 };
 
-export default SellUser;
+export default Userselllist;

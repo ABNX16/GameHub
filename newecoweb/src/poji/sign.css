@@ -178,7 +178,7 @@ button[type="submit"]:hover {
     
     
   }
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
   #sign-form {
     margin: 80px auto;
     padding: 30px 20px;
@@ -190,7 +190,7 @@ button[type="submit"]:hover {
 
   #username-input,
   #userphone-input {
-    width: 100%;
+    width: 90%;
   }
 
   input[type="email"],

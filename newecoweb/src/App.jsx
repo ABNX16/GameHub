@@ -38,6 +38,7 @@ import Soon from './poji/Soon';
 import AutoLogin from './poji/AutoLogin'; 
 import SellUser from './poji/Userselllist';
 import Sign1 from './poji/Sign1';
+import Userselllist from './poji/Userselllist';
 
 function App() {
   return (
@@ -75,7 +76,7 @@ function App() {
           <Route path="/sellerp" element={<SellerP />} />
           <Route path="/sellerlist" element={<SellerList />} />
           <Route path="/ordersuccess" element={<Ordersucc />} />
-          <Route path="/selluser" element={<SellUser />} />
+          <Route path="/selluser" element={<Userselllist />} />
           <Route path="/prodile" element={<Profile />} />
         </Routes>
       </Router>
