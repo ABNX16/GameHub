@@ -16,7 +16,7 @@ function Addpro() {
   const [category, setCategory] = useState('');
   const [file, setFile] = useState(null);
 
-  const categories = ['Game', 'Console', 'Accessories', 'soon'];
+  const categories = ['Game', 'Console', 'Accessories'];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
