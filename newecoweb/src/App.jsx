@@ -31,11 +31,12 @@ import Ordersucc from './poji/Ordersucc';
 import Sellsucc from './poji/Sellsucc';
 import Visited from './Admin c/Visited';
 import Accpet from './Admin c/Accept';
-import Selluser from './poji/Selluser';
+
 import Profile from './poji/Profile';
 import Soon from './poji/Soon';
 
 import AutoLogin from './poji/AutoLogin'; 
+import SellUser from './poji/Sellusers';
 
 function App() {
   return (
@@ -72,7 +73,7 @@ function App() {
           <Route path="/sellerp" element={<SellerP />} />
           <Route path="/sellerlist" element={<SellerList />} />
           <Route path="/ordersuccess" element={<Ordersucc />} />
-          <Route path="/selluser" element={<Selluser />} />
+          <Route path="/selluser" element={<SellUser />} />
           <Route path="/prodile" element={<Profile />} />
         </Routes>
       </Router>

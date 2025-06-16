@@ -10,8 +10,9 @@ function Cart({ showNav = true, showFoot = true }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const userEmail = localStorage.getItem('userEmail');
+ const userEmail = localStorage.getItem('userEmail');
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
+
 
   useEffect(() => {
     if (!userEmail) {
@@ -20,7 +21,8 @@ function Cart({ showNav = true, showFoot = true }) {
       return;
     }
 
-    axios.get(`${baseUrl}/cart/${userEmail}`)
+   axios.get(`${baseUrl}/cart/${userEmail}`)
+
       .then((response) => {
         setCartItems(response.data);
         setLoading(false);
@@ -29,7 +31,7 @@ function Cart({ showNav = true, showFoot = true }) {
         setError('Failed to load cart items.');
         setLoading(false);
       });
-  }, [userEmail, baseUrl]);
+  }, [userEmail]);
 
   const handleRemoveFromCart = (id) => {
     const confirmDelete = window.confirm("Are you sure you want to remove this product from the cart?");
@@ -37,7 +39,7 @@ function Cart({ showNav = true, showFoot = true }) {
 
     axios.delete(`${baseUrl}/cart/${id}`)
       .then(() => {
-        setCartItems(prevItems => prevItems.filter(item => item._id !== id));
+        setCartItems(cartItems.filter(item => item._id !== id));
       })
       .catch((err) => {
         setError('Failed to remove item from cart.');
@@ -67,11 +69,9 @@ function Cart({ showNav = true, showFoot = true }) {
                     <div style={styles.productName}>{item.name}</div>
                     <div style={styles.productPrice}>
                       <span style={styles.offerPrice}>₹{item.offerPrice}</span>
-                      {item.offerPrice < item.price && (
-                        <span style={styles.originalPrice}><s>₹{item.price}</s></span>
-                      )}
+                      <span style={styles.originalPrice}><s>₹{item.price}</s></span>
                     </div>
-                    {item.offer && <div style={styles.discountTag}>{item.offer}% OFF</div>}
+                    <div style={styles.discountTag}>{item.offer}% OFF</div>
                   </div>
                   <div style={styles.buttonContainer}>
                     <button
@@ -109,86 +109,113 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    color: 'white'
   },
   header: {
-    fontSize: '2rem',
-    marginBottom: '20px'
-  },
-  error: {
-    color: 'red',
-    marginBottom: '20px'
-  },
-  loading: {
-    fontSize: '1.2rem'
+    fontSize: '28px',
+    fontWeight: 'bold',
+    marginBottom: '20px',
+    color: 'white',
   },
   cartContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px'
+    gap: '15px',
+    width: '100%',
+    maxWidth: '1200px',
   },
   cartItem: {
     display: 'flex',
-    backgroundColor: '#1c1c1c',
-    padding: '10px',
-    borderRadius: '8px',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: '#D3D3D3',
+    borderRadius: '12px',
+    padding: '15px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    gap: '20px',
   },
   image: {
-    width: '80px',
-    height: '80px',
+    width: '100px',
+    height: '100px',
+    objectFit: 'cover',
     borderRadius: '8px',
-    objectFit: 'cover'
   },
   itemDetails: {
-    flex: 1,
-    marginLeft: '20px'
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    flex: '1',
   },
   productName: {
-    fontSize: '1.1rem',
-    fontWeight: 'bold'
+    fontSize: '18px',
+    fontWeight: 'bold',
+    color: '#333',
   },
   productPrice: {
     display: 'flex',
-    gap: '10px'
+    alignItems: 'center',
+    gap: '10px',
   },
   offerPrice: {
-    color: 'lime',
-    fontWeight: 'bold'
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: 'black',
   },
   originalPrice: {
-    color: 'gray'
+    fontSize: '16px',
+    color: 'black',
+    textDecoration: 'line-through',
   },
   discountTag: {
-    color: 'orange',
-    fontSize: '0.9rem'
+    backgroundColor: '#3d550c',
+    color: '#fff',
+    padding: '5px 15px',
+    borderRadius: '20px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    marginTop: '10px',
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px'
+    alignItems: 'center',
+    gap: '10px',
   },
   buyNowButton: {
-    backgroundColor: 'lime',
-    color: 'black',
-    padding: '8px 12px',
+    padding: '10px',
+    backgroundColor: '#0073e6',
+    color: '#fff',
     border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer'
+    borderRadius: '6px',
+    fontSize: '16px',
+    cursor: 'pointer',
   },
   removeButton: {
-    backgroundColor: 'red',
-    color: 'white',
-    padding: '8px 12px',
+    padding: '8px 15px',
+    backgroundColor: '#f44336',
+    color: '#fff',
     border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer'
+    borderRadius: '6px',
+    cursor: 'pointer',
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginTop: '20px',
+    fontWeight: 'bold',
+  },
+  loading: {
+    textAlign: 'center',
+    fontSize: '18px',
+    color: '#555',
+    marginTop: '40px',
   },
   emptyCartMessage: {
-    fontSize: '1.2rem',
-    color: 'gray'
-  }
+    textAlign: 'center',
+    fontSize: '18px',
+    color: '#555',
+    marginTop: '40px',
+  },
 };
 
 export default Cart;
