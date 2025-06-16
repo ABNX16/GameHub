@@ -8,7 +8,7 @@ const SellUser = () => {
   const [allSellers, setAllSellers] = useState([]);
   const [loading, setLoading] = useState(true);
   const userEmail = localStorage.getItem('userEmail');
-  const baseUrl = process.env.REACT_APP_BACKEND_URL;
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const fetchData = async () => {

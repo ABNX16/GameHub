@@ -3,6 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import './sign.css';
 
+// Vite-compatible environment variable
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
+
 const Signup1 = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -14,7 +17,6 @@ const Signup1 = () => {
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const baseUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +24,6 @@ const Signup1 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { email, name, phone, password, confirmPassword } = formData;
 
     if (password !== confirmPassword) {
@@ -42,10 +43,11 @@ const Signup1 = () => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userEmail", email);
       setError("");
-      navigate("/home"); // change route if needed
+      navigate("/home"); // Update to your post-signup route
     } catch (err) {
-      console.error("Signup failed:", err.response?.data || err.message);
-      setError(err.response?.data?.message || "Signup failed. Try again.");
+      const msg = err.response?.data?.message || "Signup failed. Try again.";
+      console.error("Signup failed:", msg);
+      setError(msg);
     }
   };
 

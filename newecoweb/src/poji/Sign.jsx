@@ -3,16 +3,18 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './sign.css';
 
+// Use VITE env variable for backend base URL
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
+
 function Sign() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const baseUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Admin Shortcut
+    // Admin shortcut login
     if (email === 'admin@gamehub.com' && password === '@289777') {
       alert("Admin login successful ✅");
       navigate('/admin12');
@@ -20,14 +22,14 @@ function Sign() {
     }
 
     try {
-      const res = await axios.post(`${baseUrl}/userlist/login`, {
+      const response = await axios.post(`${baseUrl}/userlist/login`, {
         email,
         password,
       });
 
-      if (res.data.success) {
+      if (response.data.success) {
         alert("Login successful ✅");
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', response.data.token);
         localStorage.setItem('userEmail', email);
         navigate('/home');
       }

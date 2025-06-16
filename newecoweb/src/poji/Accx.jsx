@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import './pages.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Nav from "./Nav";
 import axios from "axios";
 import Footer from "./Footer";
+
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 function Accx({ showNav = true, showFoot = true }) {
   const [items, setItems] = useState([]);
@@ -11,9 +13,9 @@ function Accx({ showNav = true, showFoot = true }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/products`)
+    axios.get(`${baseUrl}/user/products`)
       .then(response => {
-        setItems(response.data);
+        setItems(response.data || []);
       })
       .catch(() => {
         setError('Failed to load products.');
@@ -22,9 +24,12 @@ function Accx({ showNav = true, showFoot = true }) {
 
   const handleAddToCart = (item) => {
     const userEmail = localStorage.getItem('userEmail');
-    if (!userEmail) return alert('Please login first');
+    if (!userEmail) {
+      alert('Please login first');
+      return;
+    }
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/cart/add`, { ...item, userEmail })
+    axios.post(`${baseUrl}/cart/add`, { ...item, userEmail })
       .then(() => alert("Added to cart"))
       .catch(() => alert("Item already in cart"));
   };
@@ -37,46 +42,51 @@ function Accx({ showNav = true, showFoot = true }) {
 
   const AccxItems = groupedItems['Accessories'] || [];
 
-  const handleDelete = (id) => {
-    axios.delete(`${process.env.REACT_APP_BACKEND_URL}/user/products/${id}`)
-      .then(() => {
-        setItems(prev => prev.filter(item => item._id !== id));
-      })
-      .catch(err => console.error("Delete error:", err));
-  };
-
-  const handleUpdate = (id) => {
-    console.log("Update clicked for:", id);
-  };
-
   return (
     <div>
       {showNav && <Nav />}
+
       <div id="all1">
-        <h1 id="h321">Accessories on sale</h1>
+        <h1 id="h321">Accessories on Sale</h1>
         {error && <div style={styles.error}>{error}</div>}
+
         {AccxItems.length > 0 ? (
           <div style={styles.container}>
             {AccxItems.map(item => (
               <div key={item._id} style={styles.card} className="card2">
                 <img
-                  src={`${process.env.REACT_APP_BACKEND_URL}${item.image}`}
+                  src={`${baseUrl}${item.image}`}
                   alt={item.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://via.placeholder.com/200";
+                  }}
                   style={styles.image}
                 />
                 <div style={styles.offer}>{item.offer}%</div>
                 <div style={styles.name}>{item.name}</div>
                 <div style={styles.detail}><s>₹{item.price}</s></div>
                 <div style={styles.detail}>₹{item.offerPrice}</div>
-                <button id="bb1b" onClick={() => navigate("/buynow", { state: { product: item } })}>BUY NOW</button>
-                <button id="bb2b" onClick={() => handleAddToCart(item)}>Add to Cart</button>
+                <button
+                  id="bb1b"
+                  onClick={() => navigate("/buynow", { state: { product: item } })}
+                >
+                  BUY NOW
+                </button>
+                <button
+                  id="bb2b"
+                  onClick={() => handleAddToCart(item)}
+                >
+                  Add to Cart
+                </button>
               </div>
             ))}
           </div>
         ) : (
-          <div>No products found in the "Accessories" category.</div>
+          <div style={styles.noItems}>No products found in the "Accessories" category.</div>
         )}
       </div>
+
       {showFoot && <div id="footerr"><Footer /></div>}
     </div>
   );
@@ -89,10 +99,10 @@ const styles = {
     justifyContent: 'center',
     gap: '30px',
     padding: '40px',
-    backgroundColor: 'black',
+    backgroundColor: '#000',
   },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     borderRadius: '16px',
     width: '250px',
     padding: '15px',
@@ -100,11 +110,15 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     fontFamily: 'Arial, sans-serif',
+    boxShadow: '0 0 15px rgba(0,0,0,0.1)',
+    transition: 'transform 0.3s ease',
   },
   image: {
     width: "200px",
     height: "200px",
     marginBottom: "10px",
+    objectFit: "cover",
+    borderRadius: "8px",
   },
   name: {
     color: '#0073e6',
@@ -133,7 +147,13 @@ const styles = {
     textAlign: 'center',
     marginTop: '20px',
     fontWeight: 'bold',
-  }
+  },
+  noItems: {
+    textAlign: 'center',
+    padding: '30px',
+    color: '#999',
+    fontSize: '18px',
+  },
 };
 
 export default Accx;

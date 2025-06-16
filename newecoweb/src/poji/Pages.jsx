@@ -8,7 +8,7 @@ function Page({ showNav = true, showFoot = true }) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const baseUrl = process.env.REACT_APP_BACKEND_URL;
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     axios.get(`${baseUrl}/user/products`)
@@ -38,6 +38,7 @@ function Page({ showNav = true, showFoot = true }) {
 
   const handleUpdate = (id) => {
     console.log("Update clicked for:", id);
+    // You can redirect to an update page or open a modal
   };
 
   return (
@@ -52,6 +53,7 @@ function Page({ showNav = true, showFoot = true }) {
             <div style={styles.container}>
               {Object.keys(groupedItems).map(category => (
                 <div key={category} style={{ width: '100%' }}>
+                  <h2 style={styles.categoryTitle}>{category.toUpperCase()}</h2>
                   <div style={styles.container}>
                     {groupedItems[category].map(item => (
                       <div key={item._id} style={styles.card}>
@@ -60,12 +62,14 @@ function Page({ showNav = true, showFoot = true }) {
                           alt={item.name}
                           style={styles.image}
                         />
-                        <div style={styles.offer}>{item.offer}%</div>
+                        <div style={styles.offer}>{item.offer}% OFF</div>
                         <div style={styles.name}>{item.name}</div>
                         <div style={styles.detail}><s>₹{item.price}</s></div>
                         <div style={styles.detail}>₹{item.offerPrice}</div>
                         <button id="bb1b">BUY NOW</button>
                         <button id="bb2b">Add to Cart</button>
+                        <button style={styles.updateBtn} onClick={() => handleUpdate(item._id)}>Update</button>
+                        <button style={styles.deleteBtn} onClick={() => handleDelete(item._id)}>Delete</button>
                       </div>
                     ))}
                   </div>
@@ -73,7 +77,7 @@ function Page({ showNav = true, showFoot = true }) {
               ))}
             </div>
           ) : (
-            <div>No products found.</div>
+            <div style={styles.error}>No products found.</div>
           )
         )}
       </div>
@@ -90,6 +94,13 @@ const styles = {
     padding: '40px',
     backgroundColor: 'black',
   },
+  categoryTitle: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: '26px',
+    margin: '20px 0 10px',
+    fontWeight: 'bold'
+  },
   card: {
     backgroundColor: '#ffffff',
     borderRadius: '16px',
@@ -105,6 +116,8 @@ const styles = {
     width: "200px",
     height: "200px",
     marginBottom: "10px",
+    objectFit: 'cover',
+    borderRadius: '10px',
   },
   name: {
     color: '#0073e6',
@@ -140,6 +153,24 @@ const styles = {
     color: '#555',
     marginTop: '40px',
   },
+  updateBtn: {
+    marginTop: '8px',
+    padding: '5px 10px',
+    backgroundColor: '#f0ad4e',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  },
+  deleteBtn: {
+    marginTop: '6px',
+    padding: '5px 10px',
+    backgroundColor: '#d9534f',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  }
 };
 
 export default Page;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import './pages.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Footer from "./Footer";
 import Nav from "./Nav";
 import axios from "axios";
@@ -9,10 +9,10 @@ function Games({ showNav = true, showFoot = true }) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const baseUrl = process.env.REACT_APP_BACKEND_URL;
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/products`)
+    axios.get(`${baseUrl}/user/products`)
       .then(response => {
         setItems(response.data);
       })
@@ -25,7 +25,7 @@ function Games({ showNav = true, showFoot = true }) {
     const userEmail = localStorage.getItem('userEmail');
     if (!userEmail) return alert('Please login first');
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/cart/add`, { ...item, userEmail })
+    axios.post(`${baseUrl}/cart/add`, { ...item, userEmail })
       .then(() => alert("Added to cart"))
       .catch(() => alert("Item already in cart"));
   };
@@ -44,6 +44,7 @@ function Games({ showNav = true, showFoot = true }) {
       <div id="all1">
         <h1 id="h321">GAMES ON SALES</h1>
         {error && <div style={styles.error}>{error}</div>}
+
         {gamesItems.length > 0 ? (
           <div style={styles.container}>
             {gamesItems.map(item => (
@@ -53,7 +54,7 @@ function Games({ showNav = true, showFoot = true }) {
                   alt={item.name}
                   style={styles.image}
                 />
-                <div style={styles.offer}>{item.offer}%</div>
+                <div style={styles.offer}>{item.offer}% OFF</div>
                 <div style={styles.name}>{item.name}</div>
                 <div style={styles.detail}><s>₹{item.price}</s></div>
                 <div style={styles.detail}>₹{item.offerPrice}</div>
@@ -63,12 +64,11 @@ function Games({ showNav = true, showFoot = true }) {
             ))}
           </div>
         ) : (
-          <div>No products found in the "Games" category.</div>
+          <div style={styles.error}>No products found in the "Games" category.</div>
         )}
-      </div> <br />
-      <div id="footerr">
-        {showFoot && <Footer />}
       </div>
+      <br />
+      {showFoot && <div id="footerr"><Footer /></div>}
     </div>
   );
 }
@@ -80,7 +80,7 @@ const styles = {
     justifyContent: 'center',
     gap: '50px',
     backgroundColor: 'black',
-    padding: '40px'
+    padding: '40px',
   },
   card: {
     backgroundColor: '#ffffff',
@@ -91,11 +91,14 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     fontFamily: 'Arial, sans-serif',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
   },
   image: {
     width: "200px",
     height: "200px",
     marginBottom: "10px",
+    objectFit: "cover",
+    borderRadius: "10px",
   },
   name: {
     color: '#0073e6',
@@ -124,7 +127,7 @@ const styles = {
     textAlign: 'center',
     marginTop: '20px',
     fontWeight: 'bold',
-  }
+  },
 };
 
 export default Games;

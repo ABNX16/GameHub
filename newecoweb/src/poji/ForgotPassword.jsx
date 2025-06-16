@@ -9,7 +9,7 @@ function ForgotPassword() {
   const [confirmPass, setConfirmPass] = useState('');
   const [message, setMessage] = useState('');
 
-  const baseUrl = process.env.REACT_APP_BACKEND_URL;
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleReset = async (e) => {
     e.preventDefault();

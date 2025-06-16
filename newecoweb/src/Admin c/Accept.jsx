@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Adminnav from './AdminNav';
 
+// Use environment variable
+const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
 const styles = {
   container: {
     padding: '30px',
@@ -64,7 +67,7 @@ const Accpet = () => {
   useEffect(() => {
     const fetchAccepted = async () => {
       try {
-        const res = await axios.get("https://gamehub-cm5b.onrender.com/accept/");
+        const res = await axios.get(`${baseUrl}/accept/`);
         setAcceptedSellers(res.data);
       } catch (error) {
         console.error('Error fetching accepted sellers:', error);
@@ -74,10 +77,10 @@ const Accpet = () => {
   }, []);
 
   const handleDel = async (accept) => {
-    const confirmDelete = window.confirm('Are you sure you reject this product?');
+    const confirmDelete = window.confirm('Are you sure you want to reject this product?');
     if (confirmDelete) {
       try {
-        await axios.delete("https://gamehub-cm5b.onrender.com/accept/delete/${accept._id}");
+        await axios.delete(`${baseUrl}/accept/delete/${accept._id}`);
         setAcceptedSellers((prev) => prev.filter((s) => s._id !== accept._id));
       } catch (error) {
         console.error('Error deleting accepted seller:', error);
@@ -113,7 +116,7 @@ const Accpet = () => {
                 <tr key={seller._id}>
                   <td style={styles.td}>
                     <img
-                      src={`http://localhost:5000/uploads/${seller.productImage}`}
+                      src={`${baseUrl}/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}
                     />

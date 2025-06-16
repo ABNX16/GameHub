@@ -7,7 +7,7 @@ const Ordersucc = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const product = location.state?.product || {};
-  const baseUrl = process.env.REACT_APP_BACKEND_URL;
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   return (
     <div>

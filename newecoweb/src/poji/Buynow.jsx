@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
+
 const indianStates = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
   "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
@@ -74,8 +76,6 @@ function BuyNow() {
       paymentMethod
     };
 
-    const baseUrl = process.env.REACT_APP_BACKEND_URL;
-
     if (paymentMethod === 'COD') {
       try {
         await axios.post(`${baseUrl}/order/create`, orderData);
@@ -138,7 +138,7 @@ function BuyNow() {
     <div style={styles.page}>
       <div style={styles.container}>
         <div style={styles.leftPanel}>
-          <img src={`${process.env.REACT_APP_BACKEND_URL}${product.image}`} alt={product.name} style={styles.image} />
+          <img src={`${baseUrl}${product.image}`} alt={product.name} style={styles.image} />
           <h2 style={styles.productName}>{product.name}</h2>
           <p style={styles.price}>₹{offerPrice}</p>
         </div>

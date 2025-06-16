@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
+
 function AutoLogin() {
   const navigate = useNavigate();
 
@@ -11,10 +13,10 @@ function AutoLogin() {
 
     const verifyToken = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/userlist/verify-token`, {
+        const res = await axios.get(`${baseUrl}/userlist/verify-token`, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         const currentPath = window.location.pathname;

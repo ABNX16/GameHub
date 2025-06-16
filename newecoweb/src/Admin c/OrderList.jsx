@@ -2,27 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Adminnav from './AdminNav';
 
+const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
 const styles = {
   container: {
     padding: '30px',
     fontFamily: 'Segoe UI, sans-serif',
     backgroundColor: '#f0f2f5',
     minHeight: '100vh',
-  },
-  infoBox: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '25px',
-    padding: '20px',
-    backgroundColor: '#ffffff',
-    borderRadius: '10px',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
-  },
-  infoItem: {
-    fontSize: '16px',
-    color: '#333',
-    lineHeight: '1.6',
   },
   heading: {
     textAlign: 'center',
@@ -97,7 +84,7 @@ const OrderList = () => {
     const confirmDelete = window.confirm("Are you sure you completed this order?");
     if (confirmDelete) {
       try {
-        await axios.delete(`https://gamehub-cm5b.onrender.com/order/delete/${id}`);
+        await axios.delete(`${baseUrl}/order/delete/${id}`);
         setOrders((prevOrders) => prevOrders.filter(order => order._id !== id));
       } catch (error) {
         console.error('Error deleting order:', error);
@@ -108,7 +95,7 @@ const OrderList = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`https://gamehub-cm5b.onrender.com5000/order/list`);
+        const response = await axios.get(`${baseUrl}/order/list`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -147,7 +134,7 @@ const OrderList = () => {
                   <td style={styles.td}>
                     {order.image && (
                       <img
-                        src={`https://gamehub-cm5b.onrender.com${order.image}`}
+                        src={`${baseUrl}${order.image}`}
                         alt={order.productName}
                         style={styles.image}
                       />
