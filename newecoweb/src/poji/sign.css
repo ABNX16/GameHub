@@ -178,3 +178,34 @@ button[type="submit"]:hover {
     
     
   }
+  @media (max-width: 768px) {
+  #sign-form {
+    margin: 80px auto;
+    padding: 30px 20px;
+    max-width: 90%;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  #username-input,
+  #userphone-input {
+    width: 100%;
+  }
+
+  input[type="email"],
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+  }
+
+  #ii2 {
+    margin-top: 0;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  #abut {
+    margin-top: 0;
+  }
+}

@@ -183,7 +183,7 @@ const Visited = () => {
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >
                   <td style={styles.td}>
-                    <img
+                      <img
                       src={`${baseUrl}/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}

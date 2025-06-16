@@ -145,7 +145,8 @@ const SellerList = () => {
               {sellers.map((seller) => (
                 <tr key={seller._id}>
                   <td style={styles.td}>
-                    <img
+                   
+                      <img
                       src={`${baseUrl}/uploads/${seller.productImage}`}
                       alt={seller.productName}
                       style={styles.image}
