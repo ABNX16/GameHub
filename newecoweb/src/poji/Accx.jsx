@@ -151,7 +151,7 @@ const styles = {
   noItems: {
     textAlign: 'center',
     padding: '30px',
-    color: '#999',
+    color: 'black',
     fontSize: '18px',
   },
 };
