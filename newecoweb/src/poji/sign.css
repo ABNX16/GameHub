@@ -196,7 +196,7 @@ button[type="submit"]:hover {
   input[type="email"],
   input[type="text"],
   input[type="password"] {
-    width: 100%;
+    width: 90%;
   }
 
   #ii2 {

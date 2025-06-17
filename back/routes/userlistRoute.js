@@ -125,5 +125,31 @@ router.get('/', async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to fetch users" });
   }
 });
+// PUT: Reset Password
+
+router.put('/reset-password', async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ success: true, message: "Password updated successfully" });
+  } catch (err) {
+    console.error("Reset password error:", err);
+    res.status(500).json({ success: false, message: "Password reset failed" });
+  }
+});
+
 
 module.exports = router;
