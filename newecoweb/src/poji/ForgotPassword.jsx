@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './sign.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -40,6 +40,7 @@ function ForgotPassword() {
         setEmail('');
         setNewPass('');
         setConfirmPass('');
+        Navigate('/sign1')
       } else {
         setMessage(res.data.message || "Failed to update password.");
       }
