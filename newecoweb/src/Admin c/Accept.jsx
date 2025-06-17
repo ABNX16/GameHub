@@ -130,7 +130,7 @@ const Accpet = () => {
                   <td style={styles.td}>{seller.purchaseDate}</td>
                   <td style={styles.td}>{seller.upiId}</td>
                   <td style={styles.td}>
-                    <button onClick={() => handleDel(seller)}>Package received</button>
+                    <button  onClick={() => handleDel(seller)}>Package received</button>
                   </td>
                 </tr>
               ))}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './sign.css';
 import axios from 'axios';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -9,6 +9,7 @@ function ForgotPassword() {
   const [confirmPass, setConfirmPass] = useState('');
   const [message, setMessage] = useState('');
 
+  const navigate = useNavigate();  
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleReset = async (e) => {
@@ -40,7 +41,7 @@ function ForgotPassword() {
         setEmail('');
         setNewPass('');
         setConfirmPass('');
-        Navigate('/sign1')
+        navigate('/sign1'); 
       } else {
         setMessage(res.data.message || "Failed to update password.");
       }
