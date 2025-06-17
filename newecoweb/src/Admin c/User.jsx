@@ -86,9 +86,9 @@ const User = () => {
               <th style={styles.th}>User Name</th>
               <th style={styles.th}>Email</th>
               <th style={styles.th}>Phone</th>
-              <th style={styles.th}>Password</th>
+              {/* <th style={styles.th}>Password</th> */}
               {/* You can remove this if token is not per-user */}
-              <th style={styles.th}>Token</th>
+              {/* <th style={styles.th}>Token</th> */}
             </tr>
           </thead>
           <tbody>
@@ -97,9 +97,9 @@ const User = () => {
                 <td style={styles.td}>{user.name}</td>
                 <td style={styles.td}>{user.email}</td>
                 <td style={styles.td}>{user.phone}</td>
-                <td style={styles.td}>{user.password}</td>
+                {/* <td style={styles.td}>{user.password}</td> */}
                 {/* If token is the same for everyone (from localStorage), you can hide it */}
-                <td style={styles.td}>{localStorage.getItem("token") || "N/A"}</td>
+                {/* <td style={styles.td}>{localStorage.getItem("token") || "N/A"}</td> */}
               </tr>
             ))}
           </tbody>
