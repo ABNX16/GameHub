@@ -123,7 +123,7 @@ const styles = {
     marginBottom: '8px',
   },
   error: {
-    color: 'red',
+    color: 'black',
     textAlign: 'center',
     marginTop: '20px',
     fontWeight: 'bold',
